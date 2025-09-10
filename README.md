@@ -89,18 +89,6 @@ For detailed information about the bash configuration, including usage, customiz
 
 For information about terminal configuration including fastfetch and kitty, see **[Terminal & Fastfetch Configuration](.bashrc.d/TERMINAL-FASTFETCH.md)**.
 
-## 🤝 Want to Contribute?
-
-Got ideas, suggestions, or found a bug? We'd love your help! Feel free to open an issue or submit a pull request.
-
-Here's how you can contribute:
-
-1.  Fork this repository.
-2.  Create a new branch for your feature or fix (`git checkout -b feature/your-awesome-feature`).
-3.  Make your changes and ensure everything works as expected.
-4.  Commit your changes with a clear message (`git commit -m 'feat: Add a cool new feature'`).
-5.  Push your branch to your fork (`git push origin feature/your-awesome-feature`).
-6.  Open a pull request to the main repository.
 
 ## 📜 License
 
