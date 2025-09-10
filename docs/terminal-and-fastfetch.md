@@ -1,4 +1,4 @@
-# 🖥️ Terminal & Fastfetch Configuration Guide
+# Terminal & Fastfetch Configuration Guide
 
 This document provides an overview of the terminal-related configurations in your system, including fastfetch, kitty terminal, and other CLI tools.
 
@@ -68,11 +68,11 @@ tab_bar_style powerline
 - `Ctrl+Shift+C/V` - Copy/Paste
 - `Ctrl+Shift+Plus/Minus` - Adjust font size
 
-##  Bash Configuration
+## Bash Configuration
 
 For details on color schemes, aliases, custom functions, and other bash features, please see the main bash configuration documentation:
 
-- **[Bash Configuration README](./README.md)**
+- **[Bash Configuration README](../README.md)**
 
 ## 📝 Customization
 
