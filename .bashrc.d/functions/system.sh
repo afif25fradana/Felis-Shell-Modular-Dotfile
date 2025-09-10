@@ -7,6 +7,18 @@
 set -o pipefail
 
 # --- System Maintenance Functions ---
+
+# Performs comprehensive system cleanup across multiple distributions.
+#
+# This function automates the process of cleaning up system caches, removing orphaned packages,
+# and clearing user caches. It intelligently detects your package manager (pacman, apt, dnf, etc.)
+# and executes the appropriate cleanup commands for your specific distribution.
+#
+# The function handles various Linux distributions including Arch Linux, Ubuntu/Debian, Fedora,
+# openSUSE, and others, making it a versatile tool for system maintenance.
+#
+# @example
+#   sysclean
 sysclean() {
     print_info "Starting system cleanup..."
 
@@ -89,7 +101,21 @@ sysclean() {
     print_success "System cleanup completed!"
 }
 
-# Enhanced service management
+# Manages systemd services with a user-friendly interface.
+#
+# This function provides a simplified way to control systemd services, supporting both
+# system services and user services. It handles the sudo requirements automatically
+# and provides clear feedback about the operation results.
+#
+# @param $1 - The action to perform (start, stop, restart, status, enable, disable). Required.
+# @param $2 - The name of the service to manage. Required.
+# @param $3 - (Optional) Add --user flag to manage user services instead of system services.
+#
+# @example
+#   serv start nginx
+#   serv restart docker
+#   serv status apache2
+#   serv enable myapp --user
 serv() {
     if [[ $# -lt 2 ]]; then
         print_error "Usage: serv <action> <service> [--user]"

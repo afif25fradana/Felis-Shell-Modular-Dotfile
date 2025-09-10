@@ -3,6 +3,19 @@
 # Enable pipefail for better error handling in pipelines
 set -o pipefail
 
+# Clones a Git repository and automatically changes the current directory to the newly cloned folder.
+#
+# This function simplifies the process of cloning a repository and immediately navigating into it,
+# which is a common workflow for developers. It supports both specifying a target directory and
+# automatically detecting the directory name from the repository URL.
+#
+# @param $1 - The URL of the Git repository to clone. This is a required parameter.
+# @param $2 - (Optional) The name of the directory to clone the repository into. If not provided,
+#             the function will derive the directory name from the repository URL.
+#
+# @example
+#   gitclone https://github.com/user/repo.git
+#   gitclone https://github.com/user/repo.git my-repo
 gitclone() {
     if [[ $# -eq 0 ]]; then
         print_error "Usage: gitclone <repository_url> [directory]"
@@ -24,7 +37,18 @@ gitclone() {
     fi
 }
 
-# Python project initializer
+# Initializes a new Python project with a standardized structure and essential files.
+#
+# This function automates the setup of a new Python project by creating a virtual environment,
+# installing common development tools, and generating boilerplate files like `requirements.txt`,
+# `.gitignore`, and `README.md`. It also initializes a Git repository to get you started quickly.
+#
+# @param $1 - (Optional) The name of the project. If not provided, the name of the current
+#             directory will be used.
+#
+# @example
+#   pyinit my-python-project
+#   pyinit
 pyinit() {
     local project_name="${1:-$(basename "$PWD")}"
 
@@ -57,7 +81,19 @@ pyinit() {
     print_success "Python project setup complete!"
 }
 
-# Enhanced Python project initializer with common tools
+# Initializes an enhanced Python project with a more comprehensive structure and tooling.
+#
+# This function extends the basic `pyinit` by adding more advanced features, including a
+# pre-configured testing framework (pytest), code formatters (black, isort), and a linter
+# (flake8). It also sets up a `pyproject.toml` file for managing project metadata and tool
+# configurations.
+#
+# @param $1 - (Optional) The name of the project. If not provided, the name of the current
+#             directory will be used.
+#
+# @example
+#   pyinitplus my-advanced-project
+#   pyinitplus
 pyinitplus() {
     local project_name="${1:-$(basename "$PWD")}"
 
@@ -142,7 +178,18 @@ EOF
     print_success "Enhanced Python project setup complete!"
 }
 
-# Node.js project initializer
+# Initializes a new Node.js project with a standard setup and essential development tools.
+#
+# This function automates the process of creating a new Node.js project by initializing npm,
+# installing common development dependencies like ESLint, Prettier, and Nodemon, and generating
+# boilerplate files. It also sets up a Git repository for version control.
+#
+# @param $1 - (Optional) The name of the project. If not provided, the name of the current
+#             directory will be used.
+#
+# @example
+#   nodeinit my-node-app
+#   nodeinit
 nodeinit() {
     local project_name="${1:-$(basename "$PWD")}"
 
@@ -176,7 +223,20 @@ EOF
     print_success "Node.js project setup complete!"
 }
 
-# Enhanced Node.js project initializer with TypeScript support
+# Initializes an enhanced Node.js project with optional TypeScript support and a more robust setup.
+#
+# This function builds upon `nodeinit` by adding support for TypeScript, including the necessary
+# dependencies, `tsconfig.json`, and a pre-configured build process. It also sets up a more
+# organized project structure with `src` and `tests` directories.
+#
+# @param $1 - (Optional) The name of the project. If not provided, the name of the current
+#             directory will be used.
+# @param $2 - (Optional) A boolean flag to indicate whether to enable TypeScript support.
+#             Defaults to `false`.
+#
+# @example
+#   nodeinitplus my-typescript-app true
+#   nodeinitplus my-javascript-app
 nodeinitplus() {
     local project_name="${1:-$(basename "$PWD")}"
     local use_typescript="${2:-false}"
@@ -290,7 +350,19 @@ EOF
     print_success "Enhanced Node.js project setup complete!"
 }
 
-# Web development project initializer
+# Initializes a new web development project with a basic HTML, CSS, and JavaScript structure.
+#
+# This function creates a standard directory structure for a front-end project, including
+# separate folders for CSS, JavaScript, and assets. It also generates boilerplate HTML, CSS,
+# and JavaScript files, along with a `.gitignore` file, to provide a clean starting point for
+# web development.
+#
+# @param $1 - (Optional) The name of the project. If not provided, the name of the current
+#             directory will be used.
+#
+# @example
+#   webinit my-website
+#   webinit
 webinit() {
     local project_name="${1:-$(basename "$PWD")}"
 

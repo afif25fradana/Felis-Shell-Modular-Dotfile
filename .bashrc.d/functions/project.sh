@@ -3,7 +3,25 @@
 # Enable pipefail for better error handling in pipelines
 set -o pipefail
 
-# Initialize a new GitHub project with proper structure
+# Creates a new project with the appropriate structure and initialization based on project type.
+#
+# This function streamlines the process of starting new projects by automatically creating
+# the appropriate directory structure and initializing the project with the correct tools
+# and configuration files. It supports multiple project types including Python, Node.js,
+# web development, and generic shell projects.
+#
+# Each project type includes appropriate boilerplate files, configuration, and initialization
+# to get you started quickly. The function also initializes a Git repository for version control.
+#
+# @param $1 - The name of the project to create. This becomes the directory name. Required.
+# @param $2 - (Optional) The type of project to create. Can be 'python', 'node', 'web', or 'shell'.
+#             Defaults to 'shell' if not specified.
+#
+# @example
+#   newproject my-python-project python
+#   newproject my-node-app node
+#   newproject my-website web
+#   newproject my-shell-script
 newproject() {
     if [[ $# -eq 0 ]]; then
         print_error "Usage: newproject <project_name> [type]"

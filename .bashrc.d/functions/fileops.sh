@@ -7,6 +7,19 @@
 set -o pipefail
 
 # --- File Operations ---
+
+# Extracts a wide variety of archive formats automatically based on file extension.
+#
+# This function eliminates the need to remember different extraction commands for different
+# archive formats. It automatically detects the file type and uses the appropriate tool to
+# extract the contents, supporting formats like .tar.gz, .zip, .rar, and many more.
+#
+# @param $1 - The path to the archive file to extract. This is a required parameter.
+#
+# @example
+#   extract my-archive.tar.gz
+#   extract documents.zip
+#   extract data.rar
 extract() {
     if [[ $# -eq 0 ]]; then
         print_error "Usage: extract <archive_file>"

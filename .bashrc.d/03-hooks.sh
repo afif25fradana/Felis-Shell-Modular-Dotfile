@@ -139,14 +139,7 @@ _fs_auto_activate_venv() {
     fi
 }
 
-# Initialize CD hook system
-declare -a BASHRC_CD_HOOKS=()
-
-# Register our hook functions
-BASHRC_CD_HOOKS+=('_fs_clear_git_cache_on_cd')
-BASHRC_CD_HOOKS+=('_fs_auto_activate_venv')
-BASHRC_CD_HOOKS+=('_fs_auto_switch_node')
-BASHRC_CD_HOOKS+=('_fs_cd_show_contents')
+# Register our hook functions with the new generic system
 
 # Function to show directory contents after cd
 _fs_cd_show_contents() {
@@ -164,15 +157,6 @@ _fs_cd_show_contents() {
 cd() {
     # Call the builtin cd command
     builtin cd "$@" || return $?
-    
-    # Execute all registered CD hooks (backward compatibility)
-    local hook
-    for hook in "${BASHRC_CD_HOOKS[@]}"; do
-        # Check if function exists before calling it
-        if declare -F "$hook" >/dev/null; then
-            "$hook" "$@"
-        fi
-    done
     
     # Execute generic CD hooks
     bashrc_run_hooks "cd" "$@"
@@ -307,8 +291,10 @@ startup_hook() {
     fi
 }
 
-# Only run startup hook if this is a login shell
-if shopt -q login_shell 2>/dev/null; then
+# Run startup hook for interactive shells (but only once per session)
+# Check if this is an interactive shell and if we haven't run the startup hook yet
+if [[ $- == *i* ]] && [[ -z "${FELIS_SHELL_STARTUP_RUN:-}" ]]; then
+    export FELIS_SHELL_STARTUP_RUN=true
     startup_hook
 fi
 

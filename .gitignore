@@ -1,5 +1,8 @@
 # .gitignore for dotfiles repository
 
+# Exception for random-fastfetch.sh
+!.local/bin/random-fastfetch.sh
+
 # Backup files
 *~
 .*~

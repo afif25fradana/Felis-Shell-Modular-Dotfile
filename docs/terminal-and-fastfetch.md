@@ -8,7 +8,7 @@ This document provides an overview of the terminal-related configurations in you
 ~/.bashrc.d/                 # Modular bash configuration
 ~/.config/kitty/             # Kitty terminal configuration
 ~/.local/bin/                # Local binaries and scripts
-~/Pictures/Logo/             # Fastfetch logo images
+~/.dotfiles/logos/           # Fastfetch logo images
 ```
 
 ## 🚀 Fastfetch Configuration

@@ -1,8 +1,5 @@
 # <img src="logos/FullBody Logo.png" alt="Felis Shell Logo" width="50"/> Felis Shell - Modular Dotfiles
 
-> [!WARNING]
-> **I STILL NEED TO FIX THE WRONG PATH, DONT USE IT YET**
-
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Shell](https://img.shields.io/badge/shell-bash-green.svg)
 ![OS](https://img.shields.io/badge/os-Linux-blueviolet.svg)
@@ -39,14 +36,19 @@ Get up and running in minutes.
     chmod +x install.sh
     ./install.sh
     ```
+    
+    You can also preview what the installer will do without making changes:
+    ```bash
+    ./install.sh --dry-run
+    ```
+    
+    For debugging information during installation:
+    ```bash
+    ./install.sh --debug
+    ```
 
 2.  **Configure Git:**
     Update the `.gitconfig` with your personal information.
-    ```bash
-    cd ~/.dotfiles
-    chmod +x install.sh
-    ./install.sh
-    ```
 
 3.  **Reload Your Shell:**
     Open a new terminal or source your `.bashrc` to apply the changes.

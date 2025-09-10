@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ $- != *i* ]] && return
+# [[ $- != *i* ]] && return
 
 # --- [USER CONFIG] ---
 export USE_NERD_FONT=true
