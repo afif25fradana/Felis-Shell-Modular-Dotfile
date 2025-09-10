@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# ~/.bashrc.d/user.conf - User-specific configuration
+# This file is not tracked by git and should contain user-specific settings.
+#
+# Copy this file to ~/.bashrc.d/user.conf and modify as needed:
+# cp ~/.bashrc.d/user.conf.example ~/.bashrc.d/user.conf
+
+# --- [N8N Configuration] ---
+# Directory where n8n docker files are located
+# Used by n8n-start, n8n-stop, n8n-logs, and n8n-ngrok functions
+export N8N_DIR="$HOME/n8n-docker"
+
+# --- [Fastfetch Configuration] ---
+# Enable or disable the welcome screen with system information
+# Set to false to disable fastfetch on login
+export FASTFETCH_ENABLED=true
+
+# Path to the fastfetch script
+# If not set, falls back to $HOME/.local/bin/random-fastfetch.sh
+export FASTFETCH_SCRIPT="$HOME/.local/bin/random-fastfetch.sh"
+
+# --- [Node.js Version Manager] ---
+# Directory where NVM is installed
+# Usually $HOME/.nvm but can be customized
+export NVM_DIR="$HOME/.nvm"
+
+# --- [Python Virtual Environment] ---
+# Default name for Python virtual environments
+# Used by auto-activation functions
+export DEFAULT_VENV_NAME=".venv"
+
+# --- [Customization] ---
+# Enable or disable Nerd Font icons in the prompt
+# Set to false to use text-based symbols instead of icons
+export USE_NERD_FONT=true

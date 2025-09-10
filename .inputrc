@@ -1,0 +1,29 @@
+# ~/.inputrc - Readline Configuration
+
+# Allow UTF-8 characters
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Enable vi mode (uncomment to use)
+# set editing-mode vi
+
+# Enable emacs mode (default)
+set editing-mode emacs
+
+# Show all completions immediately
+set show-all-if-ambiguous on
+
+# Bell sound on error
+set bell-style audible
+
+# History search with up/down arrows
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Ctrl+Left/Right for word movement
+"\e\C-Left": backward-word
+"\e\C-Right": forward-word
+
+# Ctrl+Backspace to delete word backward
+"\C-w": unix-word-rubout
