@@ -18,6 +18,7 @@ Felis Shell is designed for broad compatibility across Linux distributions, with
 
     ```bash
     cd ~/.dotfiles
+    chmod +x install.sh # Ensure the installer script is executable
     ./install.sh
     ```
 
