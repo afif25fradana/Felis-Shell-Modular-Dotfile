@@ -95,21 +95,6 @@ These functions help manage your Felis Shell dotfiles.
     dotfiles restore
     ```
 
-#### `ghissue <title> [body]`
-*   **Purpose:** Creates a new GitHub issue using the GitHub CLI (`gh`).
-*   **Dependencies:** Requires `gh` (GitHub CLI) to be installed.
-*   **Example:**
-    ```bash
-    ghissue "Bug: Login button not working" "The login button on the homepage does not respond when clicked."
-    ```
-
-#### `ghstatus`
-*   **Purpose:** Provides a quick status check of the current Git repository, including uncommitted changes, unpushed commits, and recent GitHub issues.
-*   **Dependencies:** Requires `gh` (GitHub CLI) to be installed.
-*   **Example:**
-    ```bash
-    ghstatus
-    ```
 
 ### 4. File Operations Functions (`fileops.sh`)
 

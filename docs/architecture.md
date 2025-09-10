@@ -69,15 +69,3 @@ This file is the primary configuration file for the Bash shell. It's responsible
     *   `network.sh`: Functions for network operations (`myip`, `portcheck`).
     *   `project.sh`: Functions for project management.
     *   `system.sh`: Functions for system maintenance (`sysclean`, `serv`).
-    *   `github.sh`: Functions for GitHub CLI integration (`ghissue`, `ghstatus`).
-
-## 🔄 Data Flow and Interactions
-
-*   **Initialization:** Upon shell startup, `~/.bashrc` sources all modular scripts.
-*   **Environment Setup:** `00-colors.sh` and `01-aliases.sh` establish the visual and functional baseline.
-*   **Dynamic Prompt:** `02-prompt.sh` continuously updates the prompt based on the current directory, Git status, and active environments.
-*   **Automatic Context Switching:** `03-hooks.sh` monitors directory changes (`cd`) and automatically activates/deactivates relevant development environments (Python venvs, Node.js versions).
-*   **Function Execution:** Custom functions in `functions/` are available globally and can be called by the user or other scripts.
-*   **Dependency Fallbacks:** Aliases and functions are designed with graceful fallbacks, ensuring core functionality even if advanced dependencies are not installed.
-
-This modular structure ensures that Felis Shell is both powerful and easy to manage, allowing users to customize their environment without fear of breaking core functionality.

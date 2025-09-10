@@ -7,27 +7,34 @@ This guide provides detailed instructions for installing Felis Shell and covers 
 For a quick start, refer to the [Quick Start Guide](quick-start.md). The following steps provide more detail on the installation process.
 
 1.  **Clone the Repository:**
-    Clone the Felis Shell repository to your home directory, typically `~/.dotfiles`.
+    Clone the Felis Shell repository to a temporary location to avoid path conflicts.
     ```bash
-    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/.dotfiles
+    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
+    cd /tmp/felis-shell
     ```
 
 2.  **Run the Installer Script:**
-    Navigate into the cloned directory and execute the `install.sh` script. This script performs several crucial actions:
+    Execute the `install.sh` script. This script performs several crucial actions:
     *   **Backup:** It safely backs up your existing dotfiles (e.g., `~/.bashrc`, `~/.gitconfig`) to a timestamped directory before creating symlinks.
     *   **Symlinking:** It creates symbolic links from your home directory to the Felis Shell dotfiles in `~/.dotfiles`.
-    *   **Dependency Installation:** It attempts to install recommended dependencies using your distribution's package manager (Arch Linux, Debian/Ubuntu, Fedora, openSUSE).
+    *   **File Copying:** It copies necessary files (like logos) to their correct locations.
     *   **Shell Reload:** It prompts you to reload your shell or open a new terminal session.
 
     ```bash
-    cd ~/.dotfiles
     ./install.sh
     ```
 
 3.  **Configure Git:**
     Update your global Git configuration with your personal details.
     ```bash
-    nano ~/.gitconfig # Or your preferred editor
+    cd ~/.dotfiles
+    nano .gitconfig # Or your preferred editor
+    ```
+
+4.  **Reload Your Shell:**
+    Apply the changes by either opening a new terminal or sourcing your `.bashrc` file.
+    ```bash
+    source ~/.bashrc
     ```
     Ensure the `[user]` section contains your name and email:
     ```ini

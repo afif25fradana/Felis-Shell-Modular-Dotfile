@@ -27,12 +27,11 @@ Get up and running in minutes.
 
 1.  **Clone and Install:**
     ```bash
-    # Clone the repository
-    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/.dotfiles
-    ```
-    ```bash
+    # Clone the repository to a temporary location
+    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
+    # Move to the cloned directory
+    cd /tmp/felis-shell
     # Run the installer
-    cd ~/.dotfiles
     chmod +x install.sh
     ./install.sh
     ```
@@ -49,6 +48,12 @@ Get up and running in minutes.
 
 2.  **Configure Git:**
     Update the `.gitconfig` with your personal information.
+    ```bash
+    # After installation, the repository will be available at ~/.dotfiles
+    cd ~/.dotfiles
+    # Edit the .gitconfig file with your personal information
+    nano .gitconfig
+    ```
 
 3.  **Reload Your Shell:**
     Open a new terminal or source your `.bashrc` to apply the changes.

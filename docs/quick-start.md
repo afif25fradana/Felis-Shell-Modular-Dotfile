@@ -7,47 +7,37 @@ Welcome to Felis Shell! This guide will get you up and running with your new mod
 Felis Shell is designed for broad compatibility across Linux distributions, with a focus on Arch Linux, Ubuntu, and Debian.
 
 1.  **Clone the Repository:**
-    Open your terminal and clone the Felis Shell repository to your home directory. We recommend cloning it to `~/.dotfiles`.
+    Open your terminal and clone the Felis Shell repository to a temporary location to avoid path conflicts.
 
     ```bash
-    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/.dotfiles
+    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
+    cd /tmp/felis-shell
     ```
 
 2.  **Run the Installer:**
-    Navigate into the newly cloned directory and execute the `install.sh` script. This script will safely back up your existing dotfiles before creating symlinks for Felis Shell.
+    Execute the `install.sh` script. This script will safely back up your existing dotfiles before creating symlinks for Felis Shell and copying necessary files to their correct locations.
 
     ```bash
-    cd ~/.dotfiles
     chmod +x install.sh # Ensure the installer script is executable
     ./install.sh
     ```
 
-    The installer will guide you through the process, including installing recommended dependencies.
+    The installer will guide you through the process.
 
 3.  **Configure Git (Optional but Recommended):**
     Update the `.gitconfig` with your personal information. This ensures your Git commits are correctly attributed.
 
     ```bash
-    # Open .gitconfig with your preferred editor (e.g., nano, vim, or code)
-    nano ~/.gitconfig
-    # Or if you use VS Code:
-    # code ~/.gitconfig
-    ```
-    Replace `Your Name` and `your.email@example.com` with your actual details:
-    ```ini
-    [user]
-        name = Your Name
-        email = your.email@example.com
+    cd ~/.dotfiles
+    nano .gitconfig # Edit with your personal information
     ```
 
 4.  **Reload Your Shell:**
-    To apply the changes, open a new terminal session or source your `.bashrc` file in your current session.
+    Apply the changes by either opening a new terminal or sourcing your `.bashrc` file.
 
     ```bash
     source ~/.bashrc
     ```
-
-    You should now see the new intelligent prompt and have access to all Felis Shell features!
 
 ## ✨ Next Steps
 
