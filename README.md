@@ -1,5 +1,8 @@
 # <img src="logos/FullBody Logo.png" alt="Felis Shell Logo" width="50"/> Felis Shell - Modular Dotfiles
 
+> [!WARNING]
+> **I STILL NEED TO FIX THE WRONG PATH, DONT USE IT YET**
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Shell](https://img.shields.io/badge/shell-bash-green.svg)
 ![OS](https://img.shields.io/badge/os-Linux-blueviolet.svg)
