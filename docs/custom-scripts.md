@@ -1,66 +1,63 @@
-# Custom Scripts Reference
+# Custom Scripts Guide
 
-This document provides an overview of the custom scripts and tools located in your `~/.local/bin/` directory, which enhance your terminal experience.
+This is a quick guide to the custom scripts that live in your `~/.local/bin/` folder.
 
-## 📁 Directory Information
+## 📁 Where They Live
 
 *   **Location:** `~/.local/bin/`
-*   **Included in PATH:** Yes, this directory is automatically added to your system's PATH by `~/.bashrc.d/01-aliases.sh`, making scripts executable from any directory.
-*   **Purpose:** This directory is intended for local user-specific scripts and executables that you want to have readily available in your command line.
+*   **In Your PATH?:** Yep! This folder is automatically added to your system's PATH, so you can run these scripts from anywhere.
+*   **What it's for:** This is the perfect place to put your own custom scripts and tools that you want to be able to run easily from the command line.
 
-## 🚀 Scripts
+## 🚀 The Scripts
 
 ### `random-fastfetch.sh`
 
 **Location:** `~/.local/bin/random-fastfetch.sh`
 
-A custom script designed to display system information using `fastfetch` with a randomly selected ASCII art logo.
+This is a fun little script that runs `fastfetch` to show your system info, but with a random ASCII art logo each time.
 
-**Usage:**
+**How to use it:**
 ```bash
-ff          # Run fastfetch with a random image logo
-sysinfo     # Alternative command (alias for ff)
+ff          # Run fastfetch with a random logo
+sysinfo     # Another way to run it (it's an alias)
 ```
 
 **Features:**
-*   **Random Logo Selection:** Randomly selects an image from `$HOME/.dotfiles/logos/` each time `ff` or `sysinfo` is executed.
-*   **Fallback Mechanism:** If `$HOME/.dotfiles/logos` does not exist, it falls back to the `logos` directory in the script's own location.
-*   **Graceful Degradation:** If no images are found, it runs `fastfetch` without a custom logo.
-*   **Dynamic Sizing:** The logo width is set to a maximum of 55 characters, and the height is calculated automatically to maintain the aspect ratio.
-*   **High-Resolution ASCII Art:** Utilizes `chafa` for high-quality ASCII art output with 256-color support.
+*   **Random Logos:** Picks a random image from `$HOME/.dotfiles/logos/` every time you run it.
+*   **Fallback:** If it can't find that folder, it'll look for a `logos` folder where the script is located.
+*   **No Logo? No Problem:** If it can't find any images, it'll just run `fastfetch` normally.
+*   **Smart Sizing:** The logo is set to a max width of 55 characters, and the height adjusts automatically to keep the aspect ratio.
 
-**Configuration:**
-The script's behavior can be customized through the user configuration file `~/.bashrc.d/user.conf`:
-*   `FASTFETCH_ENABLED`: Set to `true` or `false` to enable or disable the welcome screen (default: `true`).
-*   `FASTFETCH_SCRIPT`: Path to the fastfetch script (default: `$HOME/.local/bin/random-fastfetch.sh`).
+**How to tweak it:**
+You can change how the script works in your `~/.bashrc.d/user.conf` file:
+*   `FASTFETCH_ENABLED`: Set to `true` or `false` to turn the welcome screen on or off.
+*   `FASTFETCH_SCRIPT`: The path to the fastfetch script.
 
-You can also modify the `random-fastfetch.sh` script directly to adjust:
-*   `LOGO_DIR`: The directory containing the logo images.
-*   `MAX_LOGO_WIDTH`: The maximum width of the logo in characters.
-*   `chafa` options for output quality.
+You can also edit the `random-fastfetch.sh` script directly to change:
+*   `LOGO_DIR`: The folder where your logos are.
+*   `MAX_LOGO_WIDTH`: The max width of the logo.
 
-## 📋 Adding New Scripts
+## 📋 How to Add Your Own Scripts
 
-To add your own custom script to your PATH:
-1.  **Create the script file** in the `~/.local/bin/` directory.
+1.  **Create a new script** in the `~/.local/bin/` folder.
 2.  **Make it executable:**
     ```bash
-    chmod +x ~/.local/bin/your-script-name.sh
+    chmod +x ~/.local/bin/your-cool-script.sh
     ```
-3.  The script will automatically be available in your terminal after reloading your shell or opening a new session.
+3.  That's it! Your new script will be available in your terminal after you open a new one or reload your shell.
 
-## ⚙️ Script Development Tips
+## ⚙️ A Few Tips for Writing Scripts
 
-*   **Shebang:** Always start your scripts with a proper shebang line (e.g., `#!/usr/bin/env bash` or `#!/usr/bin/python3`).
-*   **Executability:** Ensure scripts are executable using `chmod +x`.
-*   **Testing:** Test your scripts thoroughly before relying on them for daily use.
-*   **Help Text:** Consider adding help text with `-h` or `--help` options for user-friendliness.
-*   **Error Handling:** Implement robust error handling (e.g., `set -o pipefail`, `exit 1` on failure).
+*   **Shebang:** Always start your scripts with `#!/usr/bin/env bash`.
+*   **Make it Executable:** Don't forget to `chmod +x` your script.
+*   **Test it Out:** It's always a good idea to test your scripts before you rely on them.
+*   **Help Text:** Adding a `-h` or `--help` option is a nice touch.
+*   **Error Handling:** Using `set -o pipefail` and `exit 1` on errors is a good practice.
 
-## 🔄 Maintenance
+## 🔄 Backing Up Your Scripts
 
-Scripts in this directory are considered part of your dotfiles configuration. For backup and restoration:
+Your custom scripts are backed up along with the rest of your dotfiles when you run the `dotfiles` command:
 
 ```bash
-dotfiles backup    # Backup dotfiles including scripts in ~/.local/bin/
-dotfiles restore   # Restore dotfiles including scripts in ~/.local/bin/
+dotfiles backup    # Backs up your scripts in ~/.local/bin/
+dotfiles restore   # Restores your scripts

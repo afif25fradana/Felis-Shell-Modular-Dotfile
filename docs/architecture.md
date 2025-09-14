@@ -1,22 +1,22 @@
-# Architecture Overview
+# How It All Works
 
-Felis Shell is built with a modular and extensible architecture, designed to provide a powerful yet easy-to-manage command-line experience. This document details the high-level system design, data flow, and the organization of its core components.
+Felis Shell is built to be modular and easy to tinker with. The goal is to have a powerful command-line setup that's still simple to manage. This doc gives you a quick tour of how all the pieces fit together.
 
-## 🎯 Design Principles
+## 🎯 What I Was Goin' For
 
-*   **Modularity:** Configurations are split into logical, self-contained files, making customization and maintenance straightforward.
-*   **Extensibility:** A robust hook system allows for easy integration of new features and custom scripts.
-*   **Performance:** Optimized components, such as Git status caching, ensure a responsive shell experience.
-*   **Compatibility:** Designed for broad compatibility across Linux distributions, with graceful fallbacks for dependencies.
-*   **Readability:** Clear, well-commented code and a logical file structure enhance understanding and contribution.
+*   **Keep it Simple:** Configs are split into smaller, logical files. This makes it easy to find what you're looking for and make changes without breaking everything.
+*   **Easy to Add Stuff:** A simple hook system lets you add your own scripts and features without a headache.
+*   **Keep it Snappy:** Things like Git status caching are used to make sure your prompt is fast and doesn't lag.
+*   **Works on Most Systems:** Designed to run on different Linux distros. If a fancy tool is missing, it'll fall back to a basic one.
+*   **Easy to Read:** The code is commented and the files are organized logically, so you can figure out what's going on.
 
-## 🏗️ High-Level System Design
+## 🏗️ How It Loads Up
 
-The Felis Shell environment is loaded in a specific, predictable order to ensure all components are initialized correctly and can interact seamlessly. The main entry point is `~/.bashrc`, which then sources all configuration files from the `~/.dotfiles/.bashrc.d` directory.
+When you open your terminal, Felis Shell loads everything in a specific order to make sure it all works together. It starts with your main `~/.bashrc` file, which then pulls in all the config files from the `~/.dotfiles/.bashrc.d` directory.
 
 ```mermaid
 graph TD
-    A[~/.bashrc] --> B{Source ~/.dotfiles/.bashrc.d/*};
+    A[~/.bashrc] --> B{Load files from ~/.dotfiles/.bashrc.d/*};
     B --> C[00-colors.sh];
     B --> D[01-aliases.sh];
     B --> E[02-prompt.sh];
@@ -33,39 +33,36 @@ graph TD
     G --> P[system.sh];
 ```
 
-## 📁 Component Breakdown
+## 📁 The Different Parts
 
-### 1. `~/.bashrc` (Main Entry Point)
-This file is the primary configuration file for the Bash shell. It's responsible for:
-*   Setting basic shell options.
-*   Sourcing the `install.sh` script if it exists (for initial setup).
-*   Sourcing all modular configuration files from `~/.dotfiles/.bashrc.d/`.
+### 1. `~/.bashrc` (The Starting Point)
+This is the main file that kicks everything off. It sets some basic shell options and then loads all the other config files from the `.bashrc.d` directory.
 
-### 2. `00-colors.sh` (Colors & Styling)
-*   **Purpose:** Defines the color palette and provides helper functions for printing colored messages to the terminal.
-*   **Details:** Uses the Sweet Theme palette with 256-color support and fallbacks for broader compatibility. Includes semantic colors (e.g., `C_SUCCESS`, `C_ERROR`) and helper functions like `print_success`, `print_error`.
+### 2. `00-colors.sh` (Colors & Style)
+*   **What it does:** Sets up the color scheme for the terminal and provides easy ways to print colorful messages.
+*   **Details:** Uses a nice color theme that works on most terminals. It includes simple color names (like `C_SUCCESS`, `C_ERROR`) and helper functions (`print_success`, `print_error`) to make outputs look good.
 
-### 3. `01-aliases.sh` (Aliases & Environment)
-*   **Purpose:** Contains a comprehensive collection of aliases for frequently used commands and sets essential environment variables.
-*   **Details:** Includes aliases for navigation (`..`, `ll`), enhanced CLI tools (`ls` with `eza`, `cat` with `bat`), package management, development tools (Python, Node.js, Docker, Git), and system utilities. Features graceful fallbacks if enhanced tools are not installed.
+### 3. `01-aliases.sh` (Shortcuts & Settings)
+*   **What it does:** This is where all the command shortcuts (aliases) live. It also sets up some useful environment variables.
+*   **Details:** You'll find shortcuts for common commands like `ll` (for a detailed file list), and it makes tools like `ls` and `cat` better by using modern alternatives (`eza`, `bat`) if they're installed.
 
-### 4. `02-prompt.sh` (Intelligent Prompt)
-*   **Purpose:** Configures the dynamic, multi-line shell prompt to provide rich, at-a-glance information.
-*   **Details:** Displays user@host, current working directory, Git status (with caching for performance), active Python virtual environment, Node.js version, SSH session indicator, background job count, and the exit code of the last command.
+### 4. `02-prompt.sh` (The Smart Prompt)
+*   **What it does:** This file configures the cool, multi-line prompt that gives you a bunch of info at a glance.
+*   **Details:** It shows your username, current folder, Git status (with caching to keep it fast), Python virtual environment, Node.js version, and more.
 
-### 5. `03-hooks.sh` (Hooks & Integrations)
-*   **Purpose:** Implements a powerful shell hook system for automatic environment management and tool integrations.
-*   **Details:** Manages auto-activation of Python virtual environments (venv, Poetry, Pipenv, Conda) and Node.js version switching via `.nvmrc`. Integrates with tools like FZF and Zoxide. Provides a generic API (`bashrc_add_hook`, `bashrc_run_hooks`) for registering and executing functions on specific events.
+### 5. `03-hooks.sh` (Automatic Magic)
+*   **What it does:** This is where the "smart" features live. It automatically manages your environment as you move around.
+*   **Details:** It can auto-activate Python virtual environments or switch your Node.js version when you `cd` into a project. It also integrates with tools like FZF (for fuzzy finding) and Zoxide (for smart directory jumping).
 
-### 6. `functions/` (Custom Shell Functions)
-*   **Purpose:** A directory containing a rich library of custom shell functions, organized by category, to automate common tasks and streamline workflows.
+### 6. `functions/` (The Toolbox)
+*   **What it does:** This folder is a collection of handy shell functions, sorted into different files by what they do.
 *   **Details:**
-    *   `development.sh`: Functions for project initialization (`pyinit`, `nodeinit`, `newproject`).
-    *   `directory.sh`: Functions for directory operations (`mkcd`, `backup`).
-    *   `dotfiles.sh`: Functions for managing dotfiles (`dotfiles`).
-    *   `fileops.sh`: Functions for file operations (`extract`).
-    *   `help.sh`: The interactive help system (`help`).
-    *   `n8n.sh`: Functions for n8n and ngrok workflow (`n8n-start`, `n8n-ngrok`).
-    *   `network.sh`: Functions for network operations (`myip`, `portcheck`).
-    *   `project.sh`: Functions for project management.
-    *   `system.sh`: Functions for system maintenance (`sysclean`, `serv`).
+    *   `development.sh`: Functions to quickly start new projects (`pyinit`, `nodeinit`).
+    *   `directory.sh`: Helpers for moving around and making directories (`mkcd`).
+    *   `dotfiles.sh`: A tool to backup and restore your dotfiles (`dotfiles`).
+    *   `fileops.sh`: A universal `extract` command for any archive.
+    *   `help.sh`: The `help` and `shortcut` commands.
+    *   `n8n.sh`: Functions to manage n8n and ngrok.
+    *   `network.sh`: Tools to check your IP address and open ports (`myip`, `portcheck`).
+    *   `project.sh`: A command to create new projects with a nice structure (`newproject`).
+    *   `system.sh`: Tools for system cleanup and managing services (`sysclean`, `serv`).

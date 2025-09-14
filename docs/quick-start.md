@@ -1,13 +1,11 @@
 # Quick Start Guide
 
-Welcome to Felis Shell! This guide will get you up and running with your new modular dotfiles in under 5 minutes.
+Welcome to Felis Shell! This guide will get you set up with your new dotfiles in just a few minutes.
 
 ## 🚀 Installation
 
-Felis Shell is designed for broad compatibility across Linux distributions, with a focus on Arch Linux, Ubuntu, and Debian.
-
-1.  **Clone the Repository:**
-    Open your terminal and clone the Felis Shell repository to a temporary location to avoid path conflicts.
+1.  **Clone the Repo:**
+    Open your terminal and clone the Felis Shell repo to a temporary folder.
 
     ```bash
     git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
@@ -15,32 +13,30 @@ Felis Shell is designed for broad compatibility across Linux distributions, with
     ```
 
 2.  **Run the Installer:**
-    Execute the `install.sh` script. This script will safely back up your existing dotfiles before creating symlinks for Felis Shell and copying necessary files to their correct locations.
+    This script will back up your old dotfiles and then set up Felis Shell.
 
     ```bash
-    chmod +x install.sh # Ensure the installer script is executable
+    chmod +x install.sh # Make the script executable
     ./install.sh
     ```
 
-    The installer will guide you through the process.
-
-3.  **Configure Git (Optional but Recommended):**
-    Update the `.gitconfig` with your personal information. This ensures your Git commits are correctly attributed.
+3.  **Set Up Your Git Info (Optional but Recommended):**
+    Update the `.gitconfig` file with your name and email so your commits are attributed to you.
 
     ```bash
     cd ~/.dotfiles
-    nano .gitconfig # Edit with your personal information
+    nano .gitconfig # Add your personal info
     ```
 
 4.  **Reload Your Shell:**
-    Apply the changes by either opening a new terminal or sourcing your `.bashrc` file.
+    To see the changes, open a new terminal or run `source ~/.bashrc`.
 
     ```bash
     source ~/.bashrc
     ```
 
-## ✨ Next Steps
+## ✨ What's Next?
 
-*   Explore the [Features](../README.md#features) to see what Felis Shell can do.
-*   Dive into the [Architecture Overview](architecture.md) to understand how everything works.
-*   Customize your setup by editing the files in `~/.dotfiles` (see [Installation and Advanced Setup](installation-and-setup.md)).
+*   Check out the [Features](../README.md#features) to see all the cool stuff you can do.
+*   Learn [How It All Works](architecture.md) to understand the setup.
+*   Customize your new shell by editing the files in `~/.dotfiles`.

@@ -259,12 +259,12 @@ install_dotfiles() {
         echo
         echo -e "  ${YELLOW}Package Installation Commands by Distribution:${NC}"
         echo -e "  ${BLUE}Arch Linux:${NC}"
-        echo -e "  ${NC}sudo pacman -S eza bat fd ripgrep fzf zoxide btop kitty fastfetch shellcheck jq unzip unrar p7zip cowsay fortune docker bzip2 gzip ncompress xz cabextract${NC}"
+        echo -e "  ${NC}sudo pacman -S eza bat fd ripgrep fzf zoxide btop kitty fastfetch shellcheck jq unzip unrar p7zip cowsay fortune-mod docker bzip2 gzip ncompress xz cabextract gh curl openbsd-netcat${NC}"
         echo -e "  ${NC}# Note: Enable and start the docker service with: sudo systemctl enable --now docker${NC}"
         echo -e "  ${NC}# Note: ngrok is not available in the official repositories. Install from AUR or the ngrok website.${NC}"
         echo
         echo -e "  ${BLUE}Ubuntu/Debian:${NC}"
-        echo -e "  ${NC}sudo apt install eza bat fd-find ripgrep fzf zoxide btop kitty fastfetch shellcheck jq unzip unrar p7zip cowsay fortune docker docker-compose bzip2 gzip ncompress xz-utils cabextract${NC}"
+        echo -e "  ${NC}sudo apt install eza bat fd-find ripgrep fzf zoxide btop kitty fastfetch shellcheck jq unzip unrar p7zip-full cowsay fortune docker.io docker-compose-plugin bzip2 gzip ncompress xz-utils cabextract gh curl netcat-openbsd${NC}"
         echo -e "  ${NC}# Note: Enable and start the docker service with: sudo systemctl enable --now docker${NC}"
         echo -e "  ${NC}# Note: ngrok is not available in the official repositories. Install from the ngrok website.${NC}"
         echo

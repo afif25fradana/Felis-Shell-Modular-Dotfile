@@ -1,79 +1,59 @@
-# Contributing Guidelines
+# Contributing to Felis Shell
 
-Felis Shell is a personal hobby project, and I welcome contributions from the community! By contributing, you help make this dotfile collection more robust, efficient, and user-friendly for everyone. Please take a moment to review this guide to ensure a smooth and effective contribution process.
+Hey there! Thanks for your interest in contributing to Felis Shell. This is a personal hobby project, and I'm excited that you'd like to help out. Any contributions, big or small, are welcome!
 
-## 🤝 How to Contribute
+## 🤝 How You Can Help
 
-1.  **Fork the Repository:** Start by forking the `Felis-Shell-Modular-Dotfile` repository to your GitHub account.
-2.  **Clone Your Fork:** Clone your forked repository to your local machine.
+1.  **Fork the Repo:** Start by forking this repository to your own GitHub account.
+2.  **Clone Your Fork:** Clone your forked repo to your computer.
     ```bash
     git clone https://github.com/YOUR_USERNAME/Felis-Shell-Modular-Dotfile.git
     cd Felis-Shell-Modular-Dotfile
     ```
-3.  **Create a New Branch:** Create a new branch for your feature or bug fix. Use a descriptive name (e.g., `feature/add-new-alias`, `bugfix/prompt-issue`).
+3.  **Create a New Branch:** Make a new branch for your changes. A descriptive name is helpful (e.g., `feature/add-cool-alias`).
     ```bash
-    git checkout -b feature/your-feature-name
+    git checkout -b feature/your-cool-idea
     ```
-4.  **Make Your Changes:** Implement your changes, adhering to the [Code Style](#-code-style) guidelines.
-5.  **Test Your Changes:** Thoroughly test your changes to ensure they work as expected and do not introduce new issues.
-6.  **Commit Your Changes:** Write clear, concise commit messages.
+4.  **Make Your Changes:** Go ahead and make your changes. Try to follow the existing code style, but don't stress too much about it.
+5.  **Test Your Changes:** Make sure your changes work as expected and don't break anything.
+6.  **Commit Your Changes:** Write a simple, clear commit message.
     ```bash
     git add .
-    git commit -m "feat: Add new useful alias for docker"
+    git commit -m "feat: Add a new alias for docker"
     ```
-7.  **Push to Your Fork:** Push your new branch to your forked repository on GitHub.
+7.  **Push to Your Fork:** Push your new branch to your fork on GitHub.
     ```bash
-    git push origin feature/your-feature-name
+    git push origin feature/your-cool-idea
     ```
-8.  **Open a Pull Request (PR):** Go to the original `Felis-Shell-Modular-Dotfile` repository on GitHub and open a new Pull Request from your branch. Provide a clear description of your changes, why they are needed, and any relevant testing information.
+8.  **Open a Pull Request (PR):** Head over to the original repo and open a new Pull Request. Give a quick description of what you've changed and why.
 
-## 📝 Code Style
+## 📝 A Few Style Tips
 
-To maintain consistency and readability, please follow these code style guidelines:
+To keep everything looking consistent, here are a few friendly guidelines:
 
-*   **Shellcheck:** All Bash scripts should pass `shellcheck` without warnings or errors. Install it with `sudo apt install shellcheck` or `sudo pacman -S shellcheck`.
+*   **`shellcheck`:** It's a good idea to run `shellcheck` on your scripts to catch common errors.
     ```bash
     shellcheck your_script.sh
     ```
-*   **Indentation:** Use 4 spaces for indentation.
-*   **Variable Naming:** Use `snake_case` for local variables and `UPPER_SNAKE_CASE` for global environment variables.
-*   **Function Naming:** Use `lowercase_with_underscores` for function names.
-*   **Comments:** Use clear and concise comments to explain complex logic or non-obvious parts of the code.
-*   **Modularity:** Keep functions and scripts focused on a single responsibility. Break down large scripts into smaller, manageable files within the `.bashrc.d/functions/` directory.
-*   **Error Handling:** Use `set -o pipefail` in scripts to ensure pipelines fail correctly. Include `return 1` or `exit 1` on errors where appropriate.
-*   **Readability:** Prioritize clear, readable code over overly clever or condensed one-liners.
+*   **Indentation:** I use 4 spaces for indentation.
+*   **Variable Names:** `snake_case` for local variables and `UPPER_SNAKE_CASE` for global ones.
+*   **Function Names:** `lowercase_with_underscores` for function names.
+*   **Comments:** If you write something complex, a quick comment explaining it is always helpful.
+*   **Keep it Simple:** Try to keep functions and scripts focused on doing one thing well.
+*   **Readability:** Clear and simple code is always better than a clever one-liner that's hard to understand.
 
-## ⚙️ Development Setup
+## 🐛 Found a Bug?
 
-To set up your development environment for contributing to Felis Shell:
+If you find a bug, please open an issue on the [GitHub Issues page](https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile/issues). In your issue, try to include:
 
-1.  **Clone the Repository:** As described above, clone your fork.
-2.  **Install Dependencies:** The `install.sh` script will help you install most recommended dependencies.
-    ```bash
-    cd ~/.dotfiles # Assuming you cloned to ~/.dotfiles
-    ./install.sh
-    ```
-3.  **Test Environment:** It's recommended to test your changes in a clean environment (e.g., a new virtual machine or a Docker container) to ensure broad compatibility.
-4.  **Local Testing:** After making changes, reload your shell to apply them:
-    ```bash
-    source ~/.bashrc
-    ```
-    Then, manually test the functionality you've modified or added.
+*   A clear title.
+*   A good description of the problem.
+*   Steps to reproduce the bug.
+*   What you expected to happen and what actually happened.
+*   Info about your setup (OS, shell, terminal, etc.).
 
-## 🐛 Reporting Bugs
+## ✨ Have an Idea?
 
-If you find a bug, please open an issue on the [GitHub Issues page](https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile/issues). When reporting a bug, please include:
+If you have an idea for a new feature, feel free to open an issue to suggest it. I'm always open to new ideas!
 
-*   **Clear Title:** A concise summary of the issue.
-*   **Description:** A detailed explanation of the problem.
-*   **Steps to Reproduce:** Numbered steps to reliably reproduce the bug.
-*   **Expected Behavior:** What you expected to happen.
-*   **Actual Behavior:** What actually happened.
-*   **Environment:** Your operating system, shell, terminal emulator, and any relevant versions (e.g., Bash version, Git version).
-*   **Screenshots/Logs:** If applicable, include screenshots or terminal output that helps illustrate the issue.
-
-## ✨ Feature Requests
-
-We're always open to new ideas! If you have a feature request, please open an issue on the [GitHub Issues page](https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile/issues). Describe your idea clearly and explain why you think it would be a valuable addition to Felis Shell.
-
-Thank you for your contributions!
+Thanks again for your help!

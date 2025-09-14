@@ -1,28 +1,28 @@
-# Shell Functions Reference
+# Shell Functions Guide
 
-Felis Shell provides a rich library of custom shell functions to automate common tasks, streamline development workflows, and enhance system management. This document serves as a comprehensive reference for all available functions, their purpose, and usage examples.
+Felis Shell comes with a bunch of handy functions to make your life easier. This guide gives you a quick rundown of what they are and how to use them.
 
-## 🎯 How to Use
+## 🎯 How to Use 'Em
 
-All functions are loaded automatically when Felis Shell is initialized. You can call them directly from your terminal.
+All these functions are ready to go as soon as you open your terminal. Just type the command and hit enter.
 
-To get a quick overview of all available shortcuts and functions, type `shortcut` in your terminal. For more detailed help on specific topics, use the `help` command (e.g., `help git`, `help dev`).
+For a quick list of all the shortcuts and commands, just type `shortcut`. If you need more details on a specific topic, use the `help` command (like `help git` or `help dev`).
 
 ## 📁 Functions by Category
 
-### 1. Development Functions (`development.sh`)
+### 1. For Developers (`development.sh`)
 
-These functions assist with project initialization and development workflows.
+Functions to help you get new projects up and running in no time.
 
 #### `gitclone <repository_url> [directory]`
-*   **Purpose:** Clones a Git repository and optionally changes into the new directory.
+*   **What it does:** Clones a Git repo and jumps you right into the new folder.
 *   **Example:**
     ```bash
     gitclone https://github.com/user/repo.git my-project
     ```
 
 #### `pyinit [project_name]`
-*   **Purpose:** Initializes a basic Python project. Creates a virtual environment (`.venv`), installs `pip`, sets up `requirements.txt`, a Python `.gitignore`, a `README.md`, and initializes a Git repository if one doesn't exist.
+*   **What it does:** Sets up a basic Python project with a virtual environment (`.venv`), `requirements.txt`, a `.gitignore`, and a `README.md`. It also turns it into a Git repo.
 *   **Example:**
     ```bash
     mkdir my-python-app && cd my-python-app
@@ -30,7 +30,7 @@ These functions assist with project initialization and development workflows.
     ```
 
 #### `pyinitplus [project_name]`
-*   **Purpose:** Initializes an enhanced Python project with common development tools (black, flake8, isort, pytest, pre-commit). Sets up a virtual environment, basic project structure (`src`, `tests`), and configuration files (`pyproject.toml`).
+*   **What it does:** Like `pyinit`, but with all the bells and whistles. It adds useful tools like `black`, `flake8`, `isort`, `pytest`, and `pre-commit` to get you started with a professional setup.
 *   **Example:**
     ```bash
     mkdir my-advanced-python-app && cd my-advanced-python-app
@@ -38,7 +38,7 @@ These functions assist with project initialization and development workflows.
     ```
 
 #### `nodeinit [project_name]`
-*   **Purpose:** Initializes a basic Node.js project. Runs `npm init -y`, installs common dev dependencies (eslint, prettier, nodemon), sets up a Node.js `.gitignore`, a `README.md`, and a basic `index.js` file. Initializes a Git repository if one doesn't exist.
+*   **What it does:** Sets up a basic Node.js project. It runs `npm init -y`, installs `eslint`, `prettier`, and `nodemon`, and creates a `.gitignore`, `README.md`, and a simple `index.js`.
 *   **Example:**
     ```bash
     mkdir my-node-app && cd my-node-app
@@ -46,10 +46,10 @@ These functions assist with project initialization and development workflows.
     ```
 
 #### `nodeinitplus [project_name] [use_typescript]`
-*   **Purpose:** Initializes an enhanced Node.js project with optional TypeScript support. Installs common dev dependencies, sets up project structure (`src`, `tests`), configuration files (`.prettierrc`, `tsconfig.json` if TypeScript), and updates `package.json` scripts.
-*   **Parameters:**
-    *   `project_name`: (Optional) The name of the project. Defaults to the current directory name.
-    *   `use_typescript`: (Optional) Set to `true` to enable TypeScript support. Defaults to `false`.
+*   **What it does:** An upgraded `nodeinit` with optional TypeScript support. It sets up a nice project structure (`src`, `tests`) and all the config files you need.
+*   **How to use:**
+    *   `project_name`: (Optional) The name of your project.
+    *   `use_typescript`: (Optional) Set to `true` if you want to use TypeScript.
 *   **Example (JavaScript):**
     ```bash
     mkdir my-advanced-node-app && cd my-advanced-node-app
@@ -62,185 +62,165 @@ These functions assist with project initialization and development workflows.
     ```
 
 #### `webinit [project_name]`
-*   **Purpose:** Initializes a basic web development project with a standard structure (`src/{css,js,assets}`, `dist`). Creates `index.html`, `style.css`, `main.js`, and a `.gitignore`. Initializes a Git repository if one doesn't exist.
+*   **What it does:** Creates a simple folder structure for a web project (`src/{css,js,assets}`, `dist`) and gives you boilerplate `index.html`, `style.css`, and `main.js` files.
 *   **Example:**
     ```bash
     mkdir my-website && cd my-website
     webinit
     ```
 
-### 2. Directory Operations Functions (`directory.sh`)
+### 2. Moving Around (`directory.sh`)
 
-These functions simplify common directory-related tasks.
+Functions to make directory navigation a breeze.
 
 #### `mkcd <directory>`
-*   **Purpose:** Creates a new directory and immediately changes into it.
+*   **What it does:** Creates a new folder and immediately `cd`s into it.
 *   **Example:**
     ```bash
     mkcd my-new-folder
     ```
 
-### 3. Dotfiles Management Functions (`dotfiles.sh`)
+### 3. Managing Your Dotfiles (`dotfiles.sh`)
 
-These functions help manage your Felis Shell dotfiles.
+A simple tool to backup and restore your Felis Shell setup.
 
 #### `dotfiles <action>`
-*   **Purpose:** Manages the backup and restoration of your dotfiles.
+*   **What it does:** Helps you save and load your dotfiles.
 *   **Actions:**
-    *   `backup`: Copies essential dotfiles and the `.bashrc.d` directory to `~/.dotfiles/` and optionally initializes/commits to a Git repository there.
-    *   `restore`: Copies dotfiles from `~/.dotfiles/` back to your home directory.
+    *   `backup`: Copies your important dotfiles to `~/.dotfiles/` and saves them in a Git repo.
+    *   `restore`: Copies your saved dotfiles from `~/.dotfiles/` back to your home directory.
 *   **Example:**
     ```bash
     dotfiles backup
     dotfiles restore
     ```
 
+### 4. Working with Files (`fileops.sh`)
 
-### 4. File Operations Functions (`fileops.sh`)
-
-These functions provide enhanced file manipulation capabilities.
+Some handy tools for file operations.
 
 #### `extract <archive_file>`
-*   **Purpose:** Extracts various archive formats (tar.gz, zip, rar, 7z, etc.) with a single command.
-*   **Dependencies:** Relies on `tar`, `bunzip2`, `unrar`, `gunzip`, `unzip`, `7z`, `unxz`, `cabextract` based on the archive type.
+*   **What it does:** Extracts pretty much any archive file you throw at it (`.tar.gz`, `.zip`, `.rar`, etc.). No need to remember a million different commands.
+*   **Needs:** `tar`, `unrar`, `unzip`, and other common extraction tools.
 *   **Example:**
     ```bash
     extract my_archive.tar.gz
     ```
 
 #### `devstatus`
-*   **Purpose:** Displays a summary of the current development environment status, including Git repository info, active Python virtual environment, Node.js version, and Docker container status.
+*   **What it does:** Shows you a quick summary of your current development environment, like your Git branch, Python venv, and running Docker containers.
 *   **Example:**
     ```bash
     devstatus
     ```
 
 #### `backup <file_or_directory>`
-*   **Purpose:** Creates a timestamped backup of a specified file or directory.
+*   **What it does:** Makes a quick, timestamped backup of a file or folder.
 *   **Example:**
     ```bash
     backup my_important_file.txt
-    backup my_project_folder
     ```
 
-### 5. Help System Functions (`help.sh`)
+### 5. Getting Help (`help.sh`)
 
-These functions provide access to the Felis Shell help system.
+Functions to help you find your way around Felis Shell.
 
 #### `shortcut`
-*   **Purpose:** Displays a comprehensive list of all custom command shortcuts, aliases, and smart features available in Felis Shell.
+*   **What it does:** Shows you a big list of all the custom shortcuts and cool features you can use.
 *   **Example:**
     ```bash
     shortcut
     ```
 
 #### `help [topic]`
-*   **Purpose:** Provides detailed help on various topics related to Felis Shell.
-*   **Topics:**
-    *   `shortcut`: Shows all custom shortcuts.
-    *   `git`: Git command help.
-    *   `dev`: Development workflow help.
-    *   `system`: System management help.
-    *   `project`: Project management help.
-    *   `github`: GitHub workflow help.
+*   **What it does:** Gives you more detailed help on different topics.
+*   **Topics:** `shortcut`, `git`, `dev`, `system`, `project`, `github`.
 *   **Example:**
     ```bash
-    help
     help git
     ```
 
-### 6. n8n Workflow Functions (`n8n.sh`)
+### 6. n8n Stuff (`n8n.sh`)
 
-These functions assist with managing n8n instances, particularly with Docker and Ngrok.
+Functions to help you manage n8n, especially if you're using it with Docker and Ngrok.
 
-#### `start-n8n` (aliased as `n8n-start`)
-*   **Purpose:** Starts n8n services using `docker-compose` in the configured n8n directory (`$N8N_DIR` or `~/n8n-docker`).
+#### `n8n-start`
+*   **What it does:** Starts up your n8n services with `docker-compose`.
 *   **Example:**
     ```bash
     n8n-start
     ```
 
-#### `stop-n8n` (aliased as `n8n-stop`)
-*   **Purpose:** Stops n8n services using `docker-compose` in the configured n8n directory.
+#### `n8n-stop`
+*   **What it does:** Stops your n8n services.
 *   **Example:**
     ```bash
     n8n-stop
     ```
 
-#### `logs-n8n` (aliased as `n8n-logs`)
-*   **Purpose:** Displays real-time logs for n8n containers using `docker-compose logs -f`.
+#### `n8n-logs`
+*   **What it does:** Shows you the live logs from your n8n containers.
 *   **Example:**
     ```bash
     n8n-logs
     ```
 
-#### `start-n8n-ngrok` (aliased as `n8n-ngrok`)
-*   **Purpose:** Starts an ngrok tunnel for n8n (port 5678), fetches the public URL, updates the `WEBHOOK_URL` in the n8n `.env` file, and then starts n8n services.
-*   **Dependencies:** Requires `ngrok` and `jq` to be installed.
+#### `n8n-ngrok`
+*   **What it does:** Starts an ngrok tunnel for your local n8n, grabs the public URL, and automatically updates your `.env` file before starting n8n.
+*   **Needs:** `ngrok` and `jq`.
 *   **Example:**
     ```bash
     n8n-ngrok
     ```
 
-### 7. Network Functions (`network.sh`)
+### 7. Network Tools (`network.sh`)
 
-These functions provide utilities for network information and diagnostics.
+A couple of utilities for checking network stuff.
 
 #### `myip`
-*   **Purpose:** Displays your local IP addresses and attempts to fetch your public IP address.
+*   **What it does:** Shows you your local IP address and your public IP address.
 *   **Example:**
     ```bash
     myip
     ```
 
 #### `portcheck <port> [host]`
-*   **Purpose:** Checks if a specified port is open on a given host (defaults to `localhost`).
-*   **Dependencies:** Requires `nc` (netcat) to be installed.
+*   **What it does:** Checks if a port is open on a specific machine (defaults to your local machine).
+*   **Needs:** `nc` (netcat).
 *   **Example:**
     ```bash
     portcheck 8080
     portcheck 22 example.com
     ```
 
-### 8. Project Management Functions (`project.sh`)
+### 8. Project Management (`project.sh`)
 
-These functions help in creating new projects with predefined structures.
+A handy tool for starting new projects.
 
 #### `newproject <project_name> [type]`
-*   **Purpose:** Creates a new project directory and initializes it based on the specified type.
-*   **Types:**
-    *   `python`: Initializes an enhanced Python project using `pyinitplus`.
-    *   `node`: Initializes an enhanced Node.js project using `nodeinitplus`.
-    *   `web`: Initializes a web development project using `webinit`.
-    *   `shell` (default): Creates a basic shell project structure with `src`, `tests`, `docs`, `README.md`, and a `.gitignore`.
+*   **What it does:** Creates a new project folder and sets it up based on the type you choose.
+*   **Types:** `python`, `node`, `web`, `shell` (default).
 *   **Example:**
     ```bash
     newproject my-new-python-api python
-    newproject my-new-website web
-    newproject my-new-script shell
     ```
 
-### 9. System Maintenance Functions (`system.sh`)
+### 9. System Maintenance (`system.sh`)
 
-These functions assist with routine system cleanup and service management.
+Functions to help you keep your system clean and tidy.
 
 #### `sysclean`
-*   **Purpose:** Performs a comprehensive system cleanup, including clearing package manager caches (pacman, apt, dnf, yum, zypper), removing orphan packages, cleaning user caches, and trimming system logs.
-*   **Dependencies:** Requires `sudo` and the relevant package manager.
+*   **What it does:** Cleans up your system by clearing package caches, removing old packages, and deleting old log files. It works on most popular Linux distros.
+*   **Needs:** `sudo`.
 *   **Example:**
     ```bash
     sysclean
     ```
 
 #### `serv <action> <service> [--user]`
-*   **Purpose:** Manages systemd services (start, stop, restart, status, enable, disable).
-*   **Parameters:**
-    *   `action`: The systemd action to perform (e.g., `start`, `stop`, `status`).
-    *   `service`: The name of the systemd service.
-    *   `--user`: (Optional) Flag to manage user-specific systemd services.
-*   **Dependencies:** Requires `sudo` for system services.
+*   **What it does:** A simpler way to manage systemd services (start, stop, restart, etc.).
+*   **Needs:** `sudo` for system services.
 *   **Example:**
     ```bash
     serv status nginx
     serv restart docker
-    serv start my-app.service --user
