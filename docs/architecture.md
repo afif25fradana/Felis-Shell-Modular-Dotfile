@@ -21,16 +21,17 @@ graph TD
     B --> D[01-aliases.sh];
     B --> E[02-prompt.sh];
     B --> F[03-hooks.sh];
-    B --> G[functions/*.sh];
-    G --> H[development.sh];
-    G --> I[directory.sh];
-    G --> J[dotfiles.sh];
-    G --> K[fileops.sh];
-    G --> L[help.sh];
-    G --> M[n8n.sh];
-    G --> N[network.sh];
-    G --> O[project.sh];
-    G --> P[system.sh];
+    B --> G[user.conf.example];
+    B --> H[functions/*.sh];
+    H --> I[development.sh];
+    H --> J[directory.sh];
+    H --> K[dotfiles.sh];
+    H --> L[fileops.sh];
+    H --> M[help.sh];
+    H --> N[n8n.sh];
+    H --> O[network.sh];
+    H --> P[project.sh];
+    H --> Q[system.sh];
 ```
 
 ## 📁 The Different Parts

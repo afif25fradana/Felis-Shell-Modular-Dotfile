@@ -20,6 +20,7 @@ Honestly, I'm lazy. I got tired of forgetting command-line shortcuts and complex
 *   **[Installation & Setup](docs/installation-and-setup.md)**: Detailed installation and customization instructions.
 *   **[Troubleshooting](docs/troubleshooting.md)**: Help with common issues.
 *   **[Contributing](docs/contributing.md)**: How to contribute to the project.
+*   **[Testing & Debugging](docs/testing-debugging.md)**: Guide to testing and debugging your dotfiles.
 
 ## 🚀 Quick Start
 
@@ -42,10 +43,16 @@ Honestly, I'm lazy. I got tired of forgetting command-line shortcuts and complex
 2.  **Set Up Your Git Info:**
     Update the `.gitconfig` file with your name and email.
     ```bash
-    # The dotfiles are installed to ~/.dotfiles
-    cd ~/.dotfiles
+    # The dotfiles are installed to ~/.dotfiles, but you should edit the files in your cloned repository
+    cd /tmp/felis-shell # Or wherever you cloned the repository
     # Open the .gitconfig file and add your info
     nano .gitconfig
+    ```
+    Here is a minimal example of what to add:
+    ```ini
+    [user]
+      name = Your Name
+      email = you@example.com
     ```
 
 3.  **Reload Your Shell:**
@@ -53,6 +60,38 @@ Honestly, I'm lazy. I got tired of forgetting command-line shortcuts and complex
     ```bash
     source ~/.bashrc
     ```
+
+## 🧪 Testing & Debugging
+
+Felis Shell includes comprehensive testing and debugging tools to ensure your dotfiles work correctly:
+
+### Test Script
+The `test_dotfiles.sh` script provides automated testing for your configuration:
+```bash
+# Run all tests
+./test_dotfiles.sh
+
+# Run with debug mode (pauses between tests)
+./test_dotfiles.sh -d
+
+# Run a specific test
+./test_dotfiles.sh --run-test syntax
+
+# Get help
+./test_dotfiles.sh --help
+```
+
+### Debug Script
+The `debug_dotfiles.sh` script helps troubleshoot issues:
+```bash
+# Run debug session
+./debug_dotfiles.sh
+
+# Run debug session with verbose output
+./debug_dotfiles.sh -v
+```
+
+For detailed information about these tools, see the **[Testing & Debugging Guide](docs/testing-debugging.md)**.
 
 ## ✨ Features
 
@@ -73,6 +112,7 @@ Felis Shell has a bunch of features to make your life easier.
 -   **Safe Installation:** The `install.sh` script backs up your old dotfiles before it does anything.
 -   **Nerd Fonts:** Uses Nerd Font icons to make things look nice.
 -   **Lots of Dev Tools:** Plenty of aliases and functions for Git, Docker, Python, and Node.js.
+-   **Testing & Debugging:** Comprehensive tools to validate and troubleshoot your configuration.
 
 </details>
 
@@ -82,12 +122,13 @@ Everything is loaded in a specific order to make sure it all works correctly.
 
 ```mermaid
 graph TD
-    A[~/.bashrc] --> B{Load Files};
+    A[~/.bashrc] --> B{Load files from ~/.dotfiles/.bashrc.d/*};
     B --> C[00-colors.sh];
     B --> D[01-aliases.sh];
     B --> E[02-prompt.sh];
     B --> F[03-hooks.sh];
-    B --> G[functions/*.sh];
+    B --> G[user.conf.example];
+    B --> H[functions/*.sh];
 ```
 
 1.  `~/.bashrc`: The main file that starts everything.
@@ -95,25 +136,85 @@ graph TD
 3.  `01-aliases.sh`: Defines all the command shortcuts.
 4.  `02-prompt.sh`: Configures the shell prompt.
 5.  `03-hooks.sh`: Manages the "smart" features.
-6.  `functions/*.sh`: Loads all the custom shell functions.
+6.  `user.conf.example`: An example file for your own custom settings.
+7.  `functions/*.sh`: Loads all the custom shell functions.
 
 For more details, check out the **[How It All Works](docs/architecture.md)** guide.
 
-## 🛠️ What You'll Need
+## 🛠️ Dependencies
 
-For the best experience, you'll want to have these tools installed. The installer will give you the right commands for your system.
+For the best experience, you'll want to have these tools installed. Here are the commands to install them on different systems.
 
 <details>
-<summary><strong>Click to see the list of dependencies</strong></summary>
+<summary><strong>Click to see the installation commands</strong></summary>
 
-**Core Tools:**
-- `eza`, `bat`, `fd`, `ripgrep`, `fzf`, `zoxide`, `btop`/`htop`, `jq`, `unzip`, `unrar`, `p7zip`, `curl`, `netcat`
+### Arch Linux based
 
-**Development:**
-- `nvm`, `shellcheck`, `docker`, `docker-compose`, `ngrok`, `gh`
+*   **Core Tools (daily CLI tools):**
+    ```bash
+    sudo pacman -S eza bat fd ripgrep fzf zoxide btop htop jq unzip unrar p7zip curl openbsd-netcat ncurses iproute2 net-tools inetutils bzip2 gzip xz cabextract file psmisc the_silver_searcher
+    ```
+*   **Development Tools (coding & linting tools):**
+    ```bash
+    sudo pacman -S shellcheck shfmt docker docker-compose github-cli python python-pip git rust python-pytest python-poetry pipenv
+    ```
+*   **Appearance (terminal eye candy):**
+    ```bash
+    sudo pacman -S kitty fastfetch cowsay fortune-mod
+    ```
+*   **AUR Helper (optional, for `yay` or `paru`):**
+    ```bash
+    # Clones to your home directory to avoid clutter
+    cd ~
+    # Replace `yay` with `paru` if you prefer
+    sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+    ```
 
-**Appearance:**
-- `kitty` (recommended terminal), `Nerd Fonts`, `fastfetch`, `cowsay`, `fortune`
+### Ubuntu/Debian based
+
+*   **Core Tools (daily CLI tools):**
+    ```bash
+    sudo apt update
+    sudo apt install eza bat fd-find ripgrep fzf zoxide btop htop jq unzip unrar p7zip-full curl netcat-openbsd ncurses-bin iproute2 net-tools iputils-ping bzip2 gzip xz-utils cabextract file psmisc silversearcher-ag
+    ```
+*   **Development Tools (coding & linting tools):**
+    ```bash
+    sudo apt install shellcheck docker.io docker-compose-plugin gh python3 python3-pip git rustc cargo
+    ```
+*   **Appearance (terminal eye candy):**
+    ```bash
+    sudo apt install kitty fastfetch cowsay fortune-mod
+    ```
+*   **Symlinks for `bat` and `fd`:**
+    ```bash
+    mkdir -p ~/.local/bin
+    ln -s /usr/bin/batcat ~/.local/bin/bat
+    ln -s /usr/bin/fdfind ~/.local/bin/fd
+    ```
+
+### Other Tools (Manual Installation)
+
+*   **nvm (Node Version Manager):**
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    ```
+*   **shfmt (Shell Formatter):**
+    *Not available in default Ubuntu/Debian repos.* Install via Go or download a binary.
+    ```bash
+    # Requires Go to be installed
+    go install mvdan.cc/sh/v3/cmd/shfmt@latest
+    ```
+*   **Python Tools (pip):**
+    *Use this as an alternative if your distribution's repositories do not have the packages below.*
+    ```bash
+    pip install pytest poetry pipenv
+    ```
+*   **ngrok:**
+    Download from the [official website](https://ngrok.com/download).
+*   **Conda:**
+    Download from the [official website](https://docs.conda.io/en/latest/miniconda.html).
+*   **Nerd Fonts:**
+    Download a font of your choice from the [Nerd Fonts website](https://www.nerdfonts.com/font-downloads) and install it in your system.
 
 </details>
 

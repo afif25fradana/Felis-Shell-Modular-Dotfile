@@ -10,6 +10,8 @@ There's a custom script that shows a random ASCII art logo every time you open a
 
 **Where it lives:** `$HOME/.local/bin/random-fastfetch.sh`
 
+This script is installed by the `install.sh` script from the project root.
+
 **How to use it:**
 ```bash
 ff          # Show system info with a random logo

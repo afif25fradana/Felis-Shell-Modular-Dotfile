@@ -3,8 +3,21 @@
 # install.sh - Dotfiles Installation Script for Felis-Shell
 #
 
+# Ensure we're running with bash
+if [ -z "${BASH_VERSION}" ]; then
+    echo "Error: This script requires bash" >&2
+    exit 1
+fi
+
+# Check for minimum bash version (4.0)
+if ((BASH_VERSINFO[0] < 4)); then
+    echo "Error: This script requires bash version 4.0 or higher" >&2
+    exit 1
+fi
+
 # Exit immediately if a command exits with a non-zero status.
 set -e
+set -o pipefail  # Exit on pipe failures
 
 # --- [COLORS] ---
 # Check if terminal supports colors
@@ -29,31 +42,83 @@ print_success() { echo -e "${GREEN}✓${NC} $*"; }
 print_warning() { echo -e "${YELLOW}⚠${NC} $*"; }
 print_error() { echo -e "${RED}✗${NC} $*" >&2; }
 
+# Check for required commands
+check_command() {
+    command -v "$1" >/dev/null 2>&1 || {
+        print_error "Required command '$1' is not installed."
+        return 1
+    }
+}
+
+# Check available disk space (in MB)
+check_disk_space() {
+    local required_space=$1
+    local available_space
+    available_space=$(df -m "$HOME" | awk 'NR==2 {print $4}')
+    
+    if (( available_space < required_space )); then
+        print_error "Insufficient disk space. Required: ${required_space}MB, Available: ${available_space}MB"
+        return 1
+    fi
+}
+
+# Verify file permissions
+check_permissions() {
+    local dir=$1
+    if [[ ! -w "$dir" ]]; then
+        print_error "No write permission in directory: $dir"
+        return 1
+    fi
+}
+
 # --- [FUNCTIONS] ---
 
 # Backup existing files
 backup_file() {
     local file="$1"
     local backup
+    local target="$HOME/$file"
     
     # Dry run mode - just show what would be done
     if [[ "${DRY_RUN:-false}" == "true" ]]; then
-        if [[ -e "$HOME/$file" ]]; then
-            echo "  Would backup: $HOME/$file"
+        if [[ -e "$target" || -L "$target" ]]; then
+            echo "  Would backup: $target"
         fi
         return 0
     fi
     
-    if [[ -e "$HOME/$file" ]]; then
+    # Check if file exists or is a symlink
+    if [[ -e "$target" || -L "$target" ]]; then
+        # Check permissions
+        if [[ ! -w "$(dirname "$target")" ]]; then
+            print_error "No write permission to backup directory: $(dirname "$target")"
+            return 1
+        fi
+        
         backup="$HOME/${file}.backup.$(date +%Y%m%d_%H%M%S)"
         
         # Debug information
         if [[ "${DEBUG:-false}" == "true" ]]; then
-            echo "  Debug: Backing up $HOME/$file to $backup"
+            echo "  Debug: Backing up $target to $backup"
+            if [[ -L "$target" ]]; then
+                echo "  Debug: Source is a symbolic link pointing to $(readlink "$target")"
+            fi
         fi
         
-        print_warning "Backing up existing '$file' to '$backup'"
-        mv "$HOME/$file" "$backup"
+        # Handle symbolic links
+        if [[ -L "$target" ]]; then
+            local link_target
+            link_target=$(readlink "$target")
+            print_warning "Backing up symbolic link '$file' (pointing to $link_target) to '$backup'"
+        else
+            print_warning "Backing up existing '$file' to '$backup'"
+        fi
+        
+        # Perform backup with error handling
+        if ! mv "$target" "$backup"; then
+            print_error "Failed to backup $target"
+            return 1
+        fi
     fi
 }
 
@@ -61,6 +126,18 @@ backup_file() {
 install_dotfile() {
     local source="$1"
     local target="$2"
+    
+    # Validate input parameters
+    if [[ -z "$source" || -z "$target" ]]; then
+        print_error "Source and target paths are required"
+        return 1
+    fi
+    
+    # Verify source file exists
+    if [[ ! -e "$source" ]]; then
+        print_error "Source file does not exist: $source"
+        return 1
+    fi
     
     # Dry run mode - just show what would be done
     if [[ "${DRY_RUN:-false}" == "true" ]]; then
@@ -77,9 +154,28 @@ install_dotfile() {
     fi
     
     # Create parent directory if it doesn't exist
-    mkdir -p "$(dirname "$target")"
+    local target_dir
+    target_dir=$(dirname "$target")
+    if ! mkdir -p "$target_dir" 2>/dev/null; then
+        print_error "Failed to create directory: $target_dir"
+        return 1
+    fi
     
-    # Create symlink
+    # Check directory permissions
+    if [[ ! -w "$target_dir" ]]; then
+        print_error "No write permission in directory: $target_dir"
+        return 1
+    fi
+    
+    # Remove existing symlink if it exists
+    if [[ -L "$target" ]]; then
+        rm "$target" || {
+            print_error "Failed to remove existing symlink: $target"
+            return 1
+        }
+    fi
+    
+    # Create symlink with error handling
     if ln -sf "$source" "$target"; then
         print_success "Installed $target"
     else
@@ -121,8 +217,26 @@ copy_file() {
 
 # The main installation function
 install_dotfiles() {
+    # Check for required commands
+    local required_commands=("ln" "mkdir" "cp" "mv" "find" "grep")
+    for cmd in "${required_commands[@]}"; do
+        check_command "$cmd" || {
+            print_error "Missing required command: $cmd"
+            return 1
+        }
+    done
+    
+    # Check for minimum disk space (100MB should be plenty)
+    check_disk_space 100 || return 1
+    
     local repo_root
     repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+    
+    # Verify repo_root exists and is readable
+    if [[ ! -d "$repo_root" || ! -r "$repo_root" ]]; then
+        print_error "Cannot access repository root directory: $repo_root"
+        return 1
+    fi
     
     # Show what will be done in dry-run mode
     if [[ "${DRY_RUN:-false}" == "true" ]]; then

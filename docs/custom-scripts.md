@@ -14,7 +14,7 @@ This is a quick guide to the custom scripts that live in your `~/.local/bin/` fo
 
 **Location:** `~/.local/bin/random-fastfetch.sh`
 
-This is a fun little script that runs `fastfetch` to show your system info, but with a random ASCII art logo each time.
+This is a fun little script that runs `fastfetch` to show your system info, but with a random ASCII art logo each time. This script is installed by the `install.sh` script from the project root.
 
 **How to use it:**
 ```bash

@@ -17,70 +17,121 @@ set -o pipefail
 # The function handles various Linux distributions including Arch Linux, Ubuntu/Debian, Fedora,
 # openSUSE, and others, making it a versatile tool for system maintenance.
 #
+# Returns:
+#   0 on success, 1 on failure
+#
 # @example
 #   sysclean
 sysclean() {
+    local has_error=false
+    local has_performed_action=false
+    
     print_info "Starting system cleanup..."
 
+    # Check for root privileges
+    if [[ $EUID -eq 0 ]]; then
+        print_error "This script should not be run as root"
+        return 1
+    fi
+
+    # Check available disk space before cleanup
+    local available_space
+    available_space=$(df -m / | awk 'NR==2 {print $4}')
+    if [[ $available_space -lt 1024 ]]; then  # Less than 1GB
+        print_warning "Low disk space detected: ${available_space}MB available"
+    fi
+
+    # Function to handle command execution with error checking
+    run_cmd() {
+        local cmd=$1
+        local msg=$2
+        if ! eval "$cmd"; then
+            print_error "Failed: $msg"
+            has_error=true
+            return 1
+        fi
+        has_performed_action=true
+        return 0
+    }
+
     # Check for different package managers and clean accordingly
-    if command -v pacman >/dev/null; then
+    if command -v pacman >/dev/null 2>&1; then
         # Arch Linux
-        sudo -v || return 1
+        if ! sudo -v; then
+            print_error "Failed to acquire sudo privileges"
+            return 1
+        fi
 
         print_info "Cleaning pacman cache..."
-        sudo pacman -Sc --noconfirm
+        run_cmd "sudo pacman -Sc --noconfirm" "pacman cache cleanup"
 
         print_info "Removing orphan packages..."
         local orphans
-        orphans=$(pacman -Qtdq 2>/dev/null)
-        if [[ -n "$orphans" ]]; then
-            echo "$orphans" | sudo pacman -Rns --noconfirm -
-            print_success "Removed orphan packages"
+        if orphans=$(pacman -Qtdq 2>/dev/null); then
+            if [[ -n "$orphans" ]]; then
+                if echo "$orphans" | run_cmd "sudo pacman -Rns --noconfirm -" "orphan package removal"; then
+                    print_success "Removed orphan packages"
+                fi
+            else
+                print_info "No orphan packages found"
+            fi
         else
-            print_info "No orphan packages found"
+            print_error "Failed to check for orphan packages"
+            has_error=true
         fi
 
         # Clean AUR helper cache if available
-        if command -v yay >/dev/null; then
+        if command -v yay >/dev/null 2>&1; then
             print_info "Cleaning yay cache..."
-            yay -Sc --noconfirm
-        elif command -v paru >/dev/null; then
+            run_cmd "yay -Sc --noconfirm" "yay cache cleanup"
+        elif command -v paru >/dev/null 2>&1; then
             print_info "Cleaning paru cache..."
-            paru -Sc --noconfirm
+            run_cmd "paru -Sc --noconfirm" "paru cache cleanup"
         fi
-
     elif command -v apt >/dev/null; then
         # Debian/Ubuntu
-        sudo -v || return 1
+        if ! sudo -v; then
+            print_error "Failed to acquire sudo privileges"
+            return 1
+        fi
 
         print_info "Cleaning apt cache..."
-        sudo apt autoremove -y
-        sudo apt autoclean
-        sudo apt clean
+        run_cmd "sudo apt autoremove -y" "apt autoremove"
+        run_cmd "sudo apt autoclean" "apt autoclean"
+        run_cmd "sudo apt clean" "apt clean"
 
     elif command -v dnf >/dev/null; then
         # Fedora
-        sudo -v || return 1
+        if ! sudo -v; then
+            print_error "Failed to acquire sudo privileges"
+            return 1
+        fi
 
         print_info "Cleaning dnf cache..."
-        sudo dnf clean all
-        sudo dnf autoremove -y
+        run_cmd "sudo dnf clean all" "dnf clean all"
+        run_cmd "sudo dnf autoremove -y" "dnf autoremove"
 
     elif command -v yum >/dev/null; then
         # Older Fedora/RHEL/CentOS
-        sudo -v || return 1
+        if ! sudo -v; then
+            print_error "Failed to acquire sudo privileges"
+            return 1
+        fi
 
         print_info "Cleaning yum cache..."
-        sudo yum clean all
-        sudo yum autoremove -y
+        run_cmd "sudo yum clean all" "yum clean all"
+        run_cmd "sudo yum autoremove -y" "yum autoremove"
 
     elif command -v zypper >/dev/null; then
         # openSUSE
-        sudo -v || return 1
+        if ! sudo -v; then
+            print_error "Failed to acquire sudo privileges"
+            return 1
+        fi
 
         print_info "Cleaning zypper cache..."
-        sudo zypper clean
-        sudo zypper remove --clean-deps
+        run_cmd "sudo zypper clean" "zypper clean"
+        run_cmd "sudo zypper remove --clean-deps" "zypper remove --clean-deps"
 
     else
         print_warning "Unknown package manager - manual cleanup required"
@@ -98,7 +149,19 @@ sysclean() {
         sudo journalctl --vacuum-time=7d 2>/dev/null
     fi
 
-    print_success "System cleanup completed!"
+    # Final status check
+    if ! $has_performed_action; then
+        print_error "No package manager found or no cleanup actions performed"
+        return 1
+    fi
+
+    if $has_error; then
+        print_warning "Cleanup completed with some errors"
+        return 1
+    else
+        print_success "System cleanup completed successfully"
+        return 0
+    fi
 }
 
 # Manages systemd services with a user-friendly interface.
@@ -137,7 +200,10 @@ serv() {
             ;;
     esac
 
-    sudo -v || return 1
+    if ! sudo -v; then
+        print_error "Failed to acquire sudo privileges"
+        return 1
+    fi
 
     if [[ "$user_flag" == "--user" ]]; then
         systemctl --user "$action" "$service"

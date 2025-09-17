@@ -144,33 +144,37 @@ Functions to help you find your way around Felis Shell.
 
 Functions to help you manage n8n, especially if you're using it with Docker and Ngrok.
 
-#### `n8n-start`
+#### `start-n8n`
 *   **What it does:** Starts up your n8n services with `docker-compose`.
+*   **Alias:** `n8n-start`
 *   **Example:**
     ```bash
-    n8n-start
+    start-n8n
     ```
 
-#### `n8n-stop`
+#### `stop-n8n`
 *   **What it does:** Stops your n8n services.
+*   **Alias:** `n8n-stop`
 *   **Example:**
     ```bash
-    n8n-stop
+    stop-n8n
     ```
 
-#### `n8n-logs`
+#### `logs-n8n`
 *   **What it does:** Shows you the live logs from your n8n containers.
+*   **Alias:** `n8n-logs`
 *   **Example:**
     ```bash
-    n8n-logs
+    logs-n8n
     ```
 
-#### `n8n-ngrok`
+#### `start-n8n-ngrok`
 *   **What it does:** Starts an ngrok tunnel for your local n8n, grabs the public URL, and automatically updates your `.env` file before starting n8n.
+*   **Alias:** `n8n-ngrok`
 *   **Needs:** `ngrok` and `jq`.
 *   **Example:**
     ```bash
-    n8n-ngrok
+    start-n8n-ngrok
     ```
 
 ### 7. Network Tools (`network.sh`)

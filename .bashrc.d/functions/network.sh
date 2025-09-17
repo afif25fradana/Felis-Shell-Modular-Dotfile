@@ -17,30 +17,73 @@ set -o pipefail
 # The function attempts to retrieve your public IP from multiple services as fallbacks,
 # ensuring reliable results even if one service is unavailable.
 #
+# Dependencies:
+#   - ip command (for local IP)
+#   - curl (for public IP)
+#
 # @example
 #   myip
 myip() {
     print_info "Network Information:"
+    local has_error=false
+
+    # Check for required commands
+    if ! command -v ip >/dev/null 2>&1; then
+        print_warning "ip command not found. Local IP information will be limited."
+        has_error=true
+    fi
+
+    if ! command -v curl >/dev/null 2>&1; then
+        print_warning "curl command not found. Cannot retrieve public IP."
+        has_error=true
+    fi
 
     # Local IP addresses
-    if command -v ip >/dev/null; then
-        local ips
-        ips=$(ip -4 addr show | grep -oP 'inet \K[\d.]+' | grep -v '127.0.0.1')
+    echo -e "${C_CYAN}Local IPs:${C_RESET}"
+    local ips
+    if command -v ip >/dev/null 2>&1; then
+        ips=$(ip -4 addr show 2>/dev/null | grep -oP 'inet \K[\d.]+' | grep -v '127.0.0.1') || {
+            print_error "Failed to retrieve local IP addresses"
+            has_error=true
+        }
         if [[ -n "$ips" ]]; then
-            echo -e "${C_CYAN}Local IPs:${C_RESET}"
             while IFS= read -r line; do
                 echo "  $line"
             done <<< "$ips"
+        else
+            echo "  No local IPs found (excluding loopback)"
+        fi
+    else
+        # Fallback to hostname command
+        local hostname_ip
+        hostname_ip=$(hostname -I 2>/dev/null | tr -d '\n')
+        if [[ -n "$hostname_ip" ]]; then
+            echo "  $hostname_ip"
+        else
+            echo "  Unable to determine local IP"
         fi
     fi
 
     # Public IP address
-    print_info "Checking public IP..."
-    local public_ip
-    public_ip=$(curl -s --connect-timeout 5 https://ipinfo.io/ip 2>/dev/null || 
-               curl -s --connect-timeout 5 https://icanhazip.com 2>/dev/null || 
-               echo "Unable to determine")
-    echo -e "${C_CYAN}Public IP:${C_RESET} $public_ip"
+    if command -v curl >/dev/null 2>&1; then
+        print_info "Checking public IP..."
+        local public_ip timeout=5
+        public_ip=$(curl -s --connect-timeout "$timeout" https://ipinfo.io/ip 2>/dev/null || 
+                   curl -s --connect-timeout "$timeout" https://icanhazip.com 2>/dev/null || 
+                   curl -s --connect-timeout "$timeout" https://api.ipify.org 2>/dev/null || 
+                   echo "Unable to determine")
+        
+        if [[ "$public_ip" == "Unable to determine" ]]; then
+            print_error "Failed to retrieve public IP (check your internet connection)"
+            has_error=true
+        else
+            echo -e "${C_CYAN}Public IP:${C_RESET} $public_ip"
+        fi
+    fi
+
+    # Return error status if any issues occurred
+    [[ "$has_error" == "true" ]] && return 1
+    return 0
 }
 
 # Port checker

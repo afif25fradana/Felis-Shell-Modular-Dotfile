@@ -7,7 +7,7 @@ This guide will walk you through installing Felis Shell and show you how to cust
 If you want to get up and running in a flash, check out the [Quick Start Guide](quick-start.md). For more detailed instructions, read on.
 
 1.  **Clone the Repo:**
-    First, you'll need to clone the Felis Shell repo to a temporary folder.
+    First, you'll need to clone the Felis Shell repo to a location of your choice. For this guide, we'll use a temporary folder.
     ```bash
     git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
     cd /tmp/felis-shell
@@ -44,7 +44,7 @@ If you want to get up and running in a flash, check out the [Quick Start Guide](
 
 ## 🛠️ What You'll Need
 
-Felis Shell uses a few external tools to make it awesome. The installer will try to install these for you, but you can also install them yourself.
+Felis Shell uses a few external tools to make it awesome. The installer will try to install these for you, but you can also install them yourself. While most of these tools are optional, they are highly recommended for the best experience.
 
 **Core Tools:**
 - `eza`, `bat`, `fd`, `ripgrep`, `fzf`, `zoxide`, `btop`/`htop`, `jq`, `unzip`, `unrar`, `p7zip`, `curl`, `netcat`
@@ -90,9 +90,9 @@ If you want to add your own shell functions, you can create a new `.sh` file in 
 
 To get the latest version of Felis Shell:
 
-1.  **Go to your dotfiles folder:**
+1.  **Go to your original cloned repository folder:**
     ```bash
-    cd ~/.dotfiles
+    cd /tmp/felis-shell # Or wherever you cloned the repository
     ```
 2.  **Pull the latest changes:**
     ```bash
