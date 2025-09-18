@@ -1,5 +1,8 @@
 # .gitignore for dotfiles repository
 
+# Test directory
+test/
+
 # Exception for random-fastfetch.sh
 !.local/bin/random-fastfetch.sh
 

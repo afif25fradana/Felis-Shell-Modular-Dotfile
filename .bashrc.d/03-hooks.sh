@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Debug output to see if this file is being loaded
+if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+    echo "Debug: Loading 03-hooks.sh"
+fi
+
 # --- [Generic Hook System] ---
 # A framework for registering and executing hooks for various events
 
@@ -40,17 +45,32 @@ bashrc_run_hooks() {
     local event_name="$1"
     shift  # Remove event_name from arguments
     
+    # Debug output
+    if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+        echo "Debug: bashrc_run_hooks called for event: $event_name" >&2
+    fi
+    
     # Check if there are any hooks for this event
     if [[ -z "${BASHRC_HOOKS[$event_name]}" ]]; then
+        if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+            echo "Debug: No hooks found for event: $event_name" >&2
+        fi
         return 0
     fi
     
     # Execute each hook function
     local hook
     for hook in ${BASHRC_HOOKS[$event_name]}; do
+        # Debug output
+        if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+            echo "Debug: Executing hook: $hook" >&2
+        fi
+        
         # Check if function exists before calling it
         if declare -F "$hook" >/dev/null; then
-            print_debug "Running hook '$hook' for event '$event_name'"
+            if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+                echo "Debug: Running hook '$hook' for event '$event_name'" >&2
+            fi
             "$hook" "$@"
         else
             print_warning "Hook function '$hook' for event '$event_name' not found"
@@ -143,12 +163,31 @@ _fs_auto_activate_venv() {
 
 # Function to show directory contents after cd
 _fs_cd_show_contents() {
+    # Debug output
+    if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+        echo "Debug: _fs_cd_show_contents called" >&2
+    fi
+    
     # Show directory contents if it's small
-    if [[ $(command find . -maxdepth 1 -type f -type d | wc -l) -le 20 ]]; then
+    local file_count
+    file_count=$(command find . -maxdepth 1 | wc -l)
+    
+    if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+        echo "Debug: File count in directory: $file_count" >&2
+    fi
+    
+    if [[ $file_count -le 20 ]]; then
+        if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+            echo "Debug: Showing directory contents" >&2
+        fi
         if command -v eza >/dev/null; then
             eza --icons --git -F --group-directories-first
         else
             ls --color=auto -F --group-directories-first
+        fi
+    else
+        if [[ "${FELIS_SHELL_DEBUG}" == "true" ]]; then
+            echo "Debug: Too many files to show ($file_count)" >&2
         fi
     fi
 }

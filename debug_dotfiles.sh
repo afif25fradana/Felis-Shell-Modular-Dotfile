@@ -111,7 +111,7 @@ debug_session() {
     
     # Check custom functions
     print_info "Testing custom functions..."
-    if bash -c "source .bashrc && type extract >/dev/null 2>&1" 2>/dev/null; then
+    if bash -i -c "source .bashrc && type extract >/dev/null 2>&1" 2>/dev/null; then
         print_success "Extract function is available"
     else
         print_warning "Extract function is not available"
@@ -119,7 +119,7 @@ debug_session() {
     
     # Check aliases
     print_info "Testing aliases..."
-    if bash -c "source .bashrc && alias ll >/dev/null 2>&1" 2>/dev/null; then
+    if bash -i -c "source .bashrc && alias ll >/dev/null 2>&1" 2>/dev/null; then
         print_success "ll alias is available"
     else
         print_warning "ll alias is not available"
