@@ -95,6 +95,22 @@ A simple tool to backup and restore your Felis Shell setup.
     dotfiles restore
     ```
 
+#### `ghissue <title> [body]`
+*   **What it does:** Creates a new GitHub issue from the command line.
+*   **Needs:** The GitHub CLI (`gh`) to be installed and authenticated.
+*   **Example:**
+    ```bash
+    ghissue "Fix a critical bug" "The app crashes when clicking the main button."
+    ```
+
+#### `ghstatus`
+*   **What it does:** Provides a quick overview of the current Git repository's status, including uncommitted changes, unpushed commits, and recent issues.
+*   **Needs:** The GitHub CLI (`gh`).
+*   **Example:**
+    ```bash
+    ghstatus
+    ```
+
 ### 4. Working with Files (`fileops.sh`)
 
 Some handy tools for file operations.

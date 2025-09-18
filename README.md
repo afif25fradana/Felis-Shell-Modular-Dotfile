@@ -6,229 +6,176 @@
 
 Welcome to **Felis Shell**, my personal collection of dotfiles for creating a comfy and powerful command-line setup. I originally built this for Arch Linux, but it should work just fine on other distros like Ubuntu and Debian.
 
-## 🤔 Why I Made This
+## Why I Made This
 
 Honestly, I'm lazy. I got tired of forgetting command-line shortcuts and complex commands for different tools. Felis Shell is my attempt to automate all that stuff away so I can have an easier and more enjoyable time in the terminal. If you're also tired of memorizing everything, maybe you'll find it useful too!
 
-## 📚 The Docs
+## Quick Start
 
-*   **[Quick Start Guide](docs/quick-start.md)**: Get up and running in 5 minutes.
-*   **[How It All Works](docs/architecture.md)**: A look at the high-level design.
-*   **[Shell Functions Guide](docs/shell-functions-reference.md)**: A guide to all the custom shell functions.
-*   **[Terminal & Fastfetch Setup](docs/terminal-and-fastfetch.md)**: How to set up your terminal, Fastfetch, and Kitty.
-*   **[Custom Scripts Guide](docs/custom-scripts.md)**: Info on the custom scripts in `~/.local/bin`.
-*   **[Installation & Setup](docs/installation-and-setup.md)**: Detailed installation and customization instructions.
-*   **[Troubleshooting](docs/troubleshooting.md)**: Help with common issues.
-*   **[Contributing](docs/contributing.md)**: How to contribute to the project.
-*   **[Testing & Debugging](docs/testing-debugging.md)**: Guide to testing and debugging your dotfiles.
+Ready to transform your command line experience? Here's how to get started:
 
-## 🚀 Quick Start
-
-1.  **Clone and Install:**
+1. **Clone and Install:**
     ```bash
-    # Clone the repo
     git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
-    # Go into the new folder
     cd /tmp/felis-shell
-    # Run the installer
     chmod +x install.sh
     ./install.sh
     ```
-    
-    You can also see what the installer will do without actually changing anything:
+
+2. **Set Up Your Git Info:**
     ```bash
-    ./install.sh --dry-run
+    cd /tmp/felis-shell
+    nano .gitconfig  # Add your name and email
     ```
 
-2.  **Set Up Your Git Info:**
-    Update the `.gitconfig` file with your name and email.
-    ```bash
-    # The dotfiles are installed to ~/.dotfiles, but you should edit the files in your cloned repository
-    cd /tmp/felis-shell # Or wherever you cloned the repository
-    # Open the .gitconfig file and add your info
-    nano .gitconfig
-    ```
-    Here is a minimal example of what to add:
-    ```ini
-    [user]
-      name = Your Name
-      email = you@example.com
-    ```
-
-3.  **Reload Your Shell:**
-    Open a new terminal or run `source ~/.bashrc` to see the changes.
+3. **Reload Your Shell:**
     ```bash
     source ~/.bashrc
     ```
 
-## 🧪 Testing & Debugging
+Want to see what the installer will do first? Run `./install.sh --dry-run`
 
-Felis Shell includes comprehensive testing and debugging tools to ensure your dotfiles work correctly:
+## Features
 
-### Test Script
-The `test_dotfiles.sh` script provides automated testing for your configuration:
+Felis Shell transforms your terminal with powerful features designed for developers and power users:
+
+- **Smart Prompt** - Beautiful two-line prompt showing Git status, Python/Node versions, and more
+- **Modern Commands** - Uses tools like `eza`, `bat`, `ripgrep` with automatic fallbacks
+- **Auto Environment** - Automatically activates Python venvs and switches Node versions
+- **Developer Tools** - Shortcuts and functions for Git, Docker, Python, Node.js workflows  
+- **Project Templates** - Quick setup commands for Python, Node.js, and web projects
+- **Safe Installation** - Backs up your existing dotfiles before making changes
+- **Comprehensive Testing** - Built-in tools to validate and debug your configuration
+
+<details>
+<summary><strong>See all features</strong></summary>
+
+- **Modular Design:** Configs split into logical, manageable files
+- **Performance Optimized:** Git status caching and lazy loading for speed
+- **150+ Functions:** Everything from `mkcd` to `extract` to `sysclean`
+- **Network Tools:** IP checking, port scanning, tunnel management
+- **File Operations:** Universal archive extraction, smart backups
+- **System Management:** Service control, cleanup utilities
+- **Integration Ready:** Works with Docker, n8n, ngrok, and more
+- **Extensive Documentation:** Detailed guides for every aspect
+- **Cross-Distro:** Tested on Arch, Ubuntu, Debian, Fedora
+
+</details>
+
+## What's Included
+
+```
+Felis Shell/
+├── Smart shell prompt with Git integration
+├── 150+ custom functions and aliases  
+├── Automatic environment management
+├── Modern CLI tools integration
+├── Developer workflow shortcuts
+├── System maintenance utilities
+├── Testing and debugging tools
+└── Comprehensive documentation
+```
+
+## Documentation
+
+| Guide | Description |
+|-------|-------------|
+| **[Quick Start](docs/quick-start.md)** | Get up and running in 5 minutes |
+| **[Dependencies](docs/dependencies-installation-guide.md)** | Complete installation guide for all tools |
+| **[Architecture](docs/architecture.md)** | How everything fits together |
+| **[Shell Functions](docs/shell-functions-reference.md)** | Guide to all 150+ functions |
+| **[Installation & Setup](docs/installation-and-setup.md)** | Detailed setup and customization |
+| **[Testing & Debugging](docs/testing-debugging.md)** | Tools for validating your setup |
+| **[Troubleshooting](docs/troubleshooting.md)** | Solutions for common issues |
+| **[Terminal Setup](docs/terminal-and-fastfetch.md)** | Configure Kitty, Fastfetch, and more |
+| **[Custom Scripts](docs/custom-scripts.md)** | Info on scripts in ~/.local/bin |
+| **[Contributing](docs/contributing.md)** | How to contribute to the project |
+
+## System Requirements
+
+Felis Shell works on most Linux distributions with bash 4.0+:
+
+- **Fully Tested:** Arch Linux, Ubuntu 20.04+, Debian 11+
+- **Should Work:** Fedora, CentOS, Pop!_OS, Linux Mint
+- **Minimum:** bash, git, curl, basic CLI tools
+- **Recommended:** See the [Dependencies Guide](docs/dependencies-installation.md)
+
+## Example Workflow
+
+Here's what a typical development session looks like with Felis Shell:
+
+```bash
+# Smart directory navigation
+z my-project          # Jump to project with zoxide
+
+# Automatic environment activation (Python venv detected and activated)
+# Prompt shows: ┌──(user@host)─[~/dev/my-project]─(git:main ✓)─(py:venv)
+
+# Quick project setup
+newproject api-service python    # Create new Python project
+pyinitplus                       # Set up with linting, testing, pre-commit
+
+# Development shortcuts  
+g status              # Git status
+g add .              # Git add all
+g cm "feat: add new endpoint"    # Git commit with message
+g push               # Git push
+
+# System maintenance
+sysclean             # Clean package cache, logs, etc.
+devstatus           # Show current dev environment status
+```
+
+## Testing & Debugging
+
+Felis Shell includes comprehensive testing tools:
+
 ```bash
 # Run all tests
 ./test_dotfiles.sh
 
-# Run with debug mode (pauses between tests)
-./test_dotfiles.sh -d
-
-# Run a specific test
-./test_dotfiles.sh --run-test syntax
-
-# Get help
-./test_dotfiles.sh --help
-```
-
-### Debug Script
-The `debug_dotfiles.sh` script helps troubleshoot issues:
-```bash
-# Run debug session
+# Debug configuration issues  
 ./debug_dotfiles.sh
 
-# Run debug session with verbose output
-./debug_dotfiles.sh -v
+# Test installation without changes
+./install.sh --dry-run
 ```
 
-For detailed information about these tools, see the **[Testing & Debugging Guide](docs/testing-debugging.md)**.
+## Project Structure
 
-## ✨ Features
-
-Felis Shell has a bunch of features to make your life easier.
-
-<details>
-<summary><strong>Click to see the full feature list</strong></summary>
-
--   **Modular Design:** Configs are split into small, easy-to-manage files.
--   **Smart Prompt:** A cool, two-line prompt that shows your Git status, Python/Node versions, and more.
-    ```
-    ┌──(user@host)─[~/Projects/Felis-Shell]─(git:main ✔)
-    └─❯
-    ```
--   **Modern Commands:** Aliases that use modern tools like `eza` for `ls` and `bat` for `cat`, with fallbacks if they're not installed.
--   **Handy Functions:** A bunch of useful functions like `mkcd` (to make a directory and enter it) and `extract` (to decompress any archive).
--   **Automatic Environment:** Automatically activates Python virtual environments and switches Node.js versions when you `cd` into a project.
--   **Safe Installation:** The `install.sh` script backs up your old dotfiles before it does anything.
--   **Nerd Fonts:** Uses Nerd Font icons to make things look nice.
--   **Lots of Dev Tools:** Plenty of aliases and functions for Git, Docker, Python, and Node.js.
--   **Testing & Debugging:** Comprehensive tools to validate and troubleshoot your configuration.
-
-</details>
-
-## 🏗️ How It's Put Together
-
-Everything is loaded in a specific order to make sure it all works correctly.
-
-```mermaid
-graph TD
-    A[~/.bashrc] --> B{Load files from ~/.dotfiles/.bashrc.d/*};
-    B --> C[00-colors.sh];
-    B --> D[01-aliases.sh];
-    B --> E[02-prompt.sh];
-    B --> F[03-hooks.sh];
-    B --> G[user.conf.example];
-    B --> H[functions/*.sh];
+```
+Felis-Shell-Modular-Dotfile/
+├── install.sh                    # Main installation script
+├── test_dotfiles.sh              # Test suite
+├── debug_dotfiles.sh             # Debug utilities
+├── .bashrc                       # Main bashrc file
+├── .bashrc.d/                    # Modular configuration
+│   ├── 00-colors.sh             # Color definitions
+│   ├── 01-aliases.sh            # Command aliases
+│   ├── 02-prompt.sh             # Shell prompt
+│   ├── 03-hooks.sh              # Auto environment switching
+│   └── functions/               # Custom shell functions
+├── .config/                     # Application configs
+│   └── kitty/                   # Terminal configuration
+├── logos/                       # ASCII art for fastfetch
+├── scripts/                     # Utility scripts
+└── docs/                        # Comprehensive documentation
 ```
 
-1.  `~/.bashrc`: The main file that starts everything.
-2.  `00-colors.sh`: Sets up the terminal colors.
-3.  `01-aliases.sh`: Defines all the command shortcuts.
-4.  `02-prompt.sh`: Configures the shell prompt.
-5.  `03-hooks.sh`: Manages the "smart" features.
-6.  `user.conf.example`: An example file for your own custom settings.
-7.  `functions/*.sh`: Loads all the custom shell functions.
+## Support & Contributing
 
-For more details, check out the **[How It All Works](docs/architecture.md)** guide.
+- **Issues:** Found a bug? [Open an issue](https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile/issues)
+- **Questions:** Check the [Troubleshooting Guide](docs/troubleshooting.md)
+- **Contributing:** See the [Contributing Guide](docs/contributing.md)
+- **Documentation:** All guides are in the `docs/` folder
 
-## 🛠️ Dependencies
+## License
 
-For the best experience, you'll want to have these tools installed. Here are the commands to install them on different systems.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-<details>
-<summary><strong>Click to see the installation commands</strong></summary>
+---
 
-### Arch Linux based
-
-*   **Core Tools (daily CLI tools):**
-    ```bash
-    sudo pacman -S eza bat fd ripgrep fzf zoxide btop htop jq unzip unrar p7zip curl openbsd-netcat ncurses iproute2 net-tools inetutils bzip2 gzip xz cabextract file psmisc the_silver_searcher
-    ```
-*   **Development Tools (coding & linting tools):**
-    ```bash
-    sudo pacman -S shellcheck shfmt docker docker-compose github-cli python python-pip git rust python-pytest python-poetry pipenv
-    ```
-*   **Appearance (terminal eye candy):**
-    ```bash
-    sudo pacman -S kitty fastfetch cowsay fortune-mod
-    ```
-*   **AUR Helper (optional, for `yay` or `paru`):**
-    ```bash
-    # Clones to your home directory to avoid clutter
-    cd ~
-    # Replace `yay` with `paru` if you prefer
-    sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
-    ```
-
-### Ubuntu/Debian based
-
-*   **Core Tools (daily CLI tools):**
-    ```bash
-    sudo apt update
-    sudo apt install eza bat fd-find ripgrep fzf zoxide btop htop jq unzip unrar p7zip-full curl netcat-openbsd ncurses-bin iproute2 net-tools iputils-ping bzip2 gzip xz-utils cabextract file psmisc silversearcher-ag
-    ```
-*   **Development Tools (coding & linting tools):**
-    ```bash
-    sudo apt install shellcheck docker.io docker-compose-plugin gh python3 python3-pip git rustc cargo
-    ```
-*   **Appearance (terminal eye candy):**
-    ```bash
-    sudo apt install kitty fastfetch cowsay fortune-mod
-    ```
-*   **Symlinks for `bat` and `fd`:**
-    ```bash
-    mkdir -p ~/.local/bin
-    ln -s /usr/bin/batcat ~/.local/bin/bat
-    ln -s /usr/bin/fdfind ~/.local/bin/fd
-    ```
-
-### Other Tools (Manual Installation)
-
-*   **nvm (Node Version Manager):**
-    ```bash
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    ```
-*   **shfmt (Shell Formatter):**
-    *Not available in default Ubuntu/Debian repos.* Install via Go or download a binary.
-    ```bash
-    # Requires Go to be installed
-    go install mvdan.cc/sh/v3/cmd/shfmt@latest
-    ```
-*   **Python Tools (pip):**
-    *Use this as an alternative if your distribution's repositories do not have the packages below.*
-    ```bash
-    pip install pytest poetry pipenv
-    ```
-*   **ngrok:**
-    Download from the [official website](https://ngrok.com/download).
-*   **Conda:**
-    Download from the [official website](https://docs.conda.io/en/latest/miniconda.html).
-*   **Nerd Fonts:**
-    Download a font of your choice from the [Nerd Fonts website](https://www.nerdfonts.com/font-downloads) and install it in your system.
-
-</details>
-
-## 🔒 A Note on Security
-
-*   **`sudo`:** Commands that need `sudo` will ask for your password, so you always know when elevated privileges are being used.
-*   **Installation:** The `install.sh` script uses your system's package manager to install tools safely.
-*   **`shellcheck`:** All the scripts are checked with `shellcheck` to avoid common scripting errors.
-
-## ⚡ Performance
-
-*   **Git Status Caching:** The prompt caches the Git status for a few seconds to keep things fast, even in big repos.
-*   **Lazy Loading:** Functions and aliases are loaded efficiently.
-
-## 📜 License
-
-This project is licensed under the MIT License.
+<p align="center">
+<em>Transform your terminal experience with Felis Shell</em><br>
+<em>Because life's too short for memorizing commands</em>
+</p>
