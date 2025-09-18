@@ -16,15 +16,15 @@ Ready to transform your command line experience? Here's how to get started:
 
 1. **Clone and Install:**
     ```bash
-    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
-    cd /tmp/felis-shell
+    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/felis-shell
+    cd ~/felis-shell
     chmod +x install.sh
     ./install.sh
     ```
 
 2. **Set Up Your Git Info:**
     ```bash
-    cd /tmp/felis-shell
+    cd ~/felis-shell
     nano .gitconfig  # Add your name and email
     ```
 

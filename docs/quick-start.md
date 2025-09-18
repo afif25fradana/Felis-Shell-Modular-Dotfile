@@ -5,11 +5,11 @@ Welcome to Felis Shell! This guide will get you set up with your new dotfiles in
 ## 🚀 Installation
 
 1.  **Clone the Repo:**
-    Open your terminal and clone the Felis Shell repo to a temporary folder.
+    Open your terminal and clone the Felis Shell repo to your home directory.
 
     ```bash
-    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
-    cd /tmp/felis-shell
+    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/felis-shell
+    cd ~/felis-shell
     ```
 
 2.  **Run the Installer:**

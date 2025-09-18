@@ -7,10 +7,10 @@ This guide will walk you through installing Felis Shell and show you how to cust
 If you want to get up and running in a flash, check out the [Quick Start Guide](quick-start.md). For more detailed instructions, read on.
 
 1.  **Clone the Repo:**
-    First, you'll need to clone the Felis Shell repo to a location of your choice. For this guide, we'll use a temporary folder.
+    First, you'll need to clone the Felis Shell repo to a location of your choice. A folder in your home directory is recommended.
     ```bash
-    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git /tmp/felis-shell
-    cd /tmp/felis-shell
+    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/felis-shell
+    cd ~/felis-shell
     ```
 
 2.  **Run the Installer:**
