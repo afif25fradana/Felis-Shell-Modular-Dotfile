@@ -144,7 +144,7 @@ _fs_auto_activate_venv() {
 # Function to show directory contents after cd
 _fs_cd_show_contents() {
     # Show directory contents if it's small
-    if [[ $(find . -maxdepth 1 -type f -type d | wc -l) -le 20 ]]; then
+    if [[ $(command find . -maxdepth 1 -type f -type d | wc -l) -le 20 ]]; then
         if command -v eza >/dev/null; then
             eza --icons --git -F --group-directories-first
         else
