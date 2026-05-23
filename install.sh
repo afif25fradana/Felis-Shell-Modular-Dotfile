@@ -267,6 +267,29 @@ install_dotfiles() {
         echo
     fi
 
+    # --- Dependency Installation ---
+    if [[ "${INSTALL_DEPS:-false}" == "true" ]]; then
+        if [[ "${DRY_RUN:-false}" == "true" ]]; then
+            print_info "Dry run: Would execute $repo_root/scripts/install-deps.sh"
+        else
+            print_info "Installing dependencies..."
+            if [[ -x "$repo_root/scripts/install-deps.sh" ]]; then
+                if ! "$repo_root/scripts/install-deps.sh"; then
+                    print_error "Dependency installation failed."
+                    read -p "Do you want to continue with dotfiles installation anyway? (y/N) " -n 1 -r
+                    echo
+                    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                        print_error "Installation cancelled."
+                        exit 1
+                    fi
+                fi
+            else
+                print_error "Dependency installation script not found or not executable: $repo_root/scripts/install-deps.sh"
+                exit 1
+            fi
+        fi
+    fi
+
     print_info "Installing Felis-Shell dotfiles..."
     
     # --- Installation ---
@@ -344,7 +367,8 @@ install_dotfiles() {
     # --- Dependency Information ---
     if [[ "${DRY_RUN:-false}" != "true" ]]; then
         echo
-        print_warning "For the best experience, please ensure these dependencies are installed:"
+        print_warning "For the best experience, please ensure these dependencies are installed."
+        print_info "You can run ${GREEN}./install.sh --install-deps${NC} to install them automatically."
         echo
         echo -e "  ${BLUE}--- Core CLI Tools ---${NC}"
         echo -e "    • ${GREEN}eza${NC}: Modern replacement for 'ls'"
@@ -402,14 +426,19 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
                 DEBUG=true
                 shift
                 ;;
+            --install-deps)
+                INSTALL_DEPS=true
+                shift
+                ;;
             --help|-h)
                 echo "Usage: $0 [OPTIONS]"
                 echo "Install Felis-Shell dotfiles."
                 echo
                 echo "Options:"
-                echo "  -n, --dry-run  Show what would be done without making changes"
-                echo "  -d, --debug    Show debug information during installation"
-                echo "  -h, --help     Show this help message"
+                echo "  -n, --dry-run     Show what would be done without making changes"
+                echo "  -d, --debug       Show debug information during installation"
+                echo "  --install-deps    Install system dependencies (requires sudo)"
+                echo "  -h, --help        Show this help message"
                 exit 0
                 ;;
             *)
