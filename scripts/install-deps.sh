@@ -31,7 +31,8 @@ install_ubuntu() {
 
     print_info "Installing essential tools..."
     sudo apt install -y git bash curl wget jq unzip p7zip-full bzip2 gzip xz-utils \
-                        file psmisc iproute2 net-tools netcat-openbsd ncurses-bin htop
+                        file psmisc iproute2 net-tools netcat-openbsd ncurses-bin htop \
+                        software-properties-common gnupg
 
     print_info "Installing modern CLI tools..."
     # Install available via apt
