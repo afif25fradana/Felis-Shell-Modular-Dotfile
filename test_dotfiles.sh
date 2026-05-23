@@ -470,12 +470,32 @@ test_deps() {
             ((missing_deps++))
         fi
     done
+
+    # Check for bat/batcat (Ubuntu compatibility)
+    if command -v bat >/dev/null 2>&1 || command -v batcat >/dev/null 2>&1; then
+        local bat_cmd
+        bat_cmd=$(command -v bat || command -v batcat)
+        print_success "Found dependency: bat ($bat_cmd)"
+    else
+        print_warning "Missing dependency: bat (or batcat)"
+        # We don't increment missing_deps here because bat has a cat fallback in aliases
+    fi
+
+    # Check for fd/fdfind (Ubuntu compatibility)
+    if command -v fd >/dev/null 2>&1 || command -v fdfind >/dev/null 2>&1; then
+        local fd_cmd
+        fd_cmd=$(command -v fd || command -v fdfind)
+        print_success "Found dependency: fd ($fd_cmd)"
+    else
+        print_warning "Missing dependency: fd (or fdfind)"
+        # We don't increment missing_deps here because fd has a find fallback in aliases
+    fi
     
     if [[ $missing_deps -eq 0 ]]; then
-        print_success "All dependencies satisfied"
+        print_success "All essential dependencies satisfied"
         return 0
     else
-        print_error "$missing_deps dependencies missing"
+        print_error "$missing_deps essential dependencies missing"
         return 1
     fi
 }

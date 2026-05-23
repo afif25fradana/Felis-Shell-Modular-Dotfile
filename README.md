@@ -22,6 +22,8 @@ Ready to transform your command line experience? Here's how to get started:
     ./install.sh
     ```
 
+    *Tip: You can automatically install missing dependencies with `./install.sh --install-deps`*
+
 2. **Set Up Your Git Info:**
     ```bash
     cd ~/felis-shell
@@ -44,6 +46,7 @@ Felis Shell transforms your terminal with powerful features designed for develop
 - **Auto Environment** - Automatically activates Python venvs and switches Node versions
 - **Developer Tools** - Shortcuts and functions for Git, Docker, Python, Node.js workflows  
 - **Project Templates** - Quick setup commands for Python, Node.js, and web projects
+- **Auto-Install** - Automatically install missing dependencies on Ubuntu/Debian/Arch
 - **Safe Installation** - Backs up your existing dotfiles before making changes
 - **Comprehensive Testing** - Built-in tools to validate and debug your configuration
 

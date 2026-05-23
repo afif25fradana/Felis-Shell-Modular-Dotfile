@@ -13,6 +13,30 @@ Modern alternatives that significantly improve the experience but have fallbacks
 ### Tier 3: Optional (Extra features)
 Nice-to-have tools for specific features or visual enhancements.
 
+## Automatic Installation
+
+Felis Shell includes a script to automatically detect and install missing dependencies on supported distributions (Arch Linux, Ubuntu, Debian, and derivatives).
+
+### Using the Installer
+The easiest way to install dependencies is through the main installer:
+
+```bash
+./install.sh --install-deps
+```
+
+This will:
+1. Detect your package manager (pacman or apt)
+2. Identify which tools are already installed
+3. Install missing essential and recommended tools
+4. Configure necessary symlinks (like `bat` and `fd` on Ubuntu)
+
+### Using the Script Directly
+You can also run the dependency installation script independently:
+
+```bash
+./scripts/install-deps.sh
+```
+
 ---
 
 ## Arch Linux / Manjaro
