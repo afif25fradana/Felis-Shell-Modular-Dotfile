@@ -1,69 +1,45 @@
-# How It All Works
+# Architecture: The Tinkerer's Guide
 
-Felis Shell is built to be modular and easy to tinker with. The goal is to have a powerful command-line setup that's still simple to manage. This doc gives you a quick tour of how all the pieces fit together.
+This guide is for anyone who wants to understand how Felis Shell is put together so they can change, add, or remove things. The goal of this project is to be modular—meaning every part is in its own box, making it hard to break the whole system when you are just playing with one piece.
 
-## 🎯 What I Was Goin' For
+## Where do I find X?
 
-*   **Keep it Simple:** Configs are split into smaller, logical files. This makes it easy to find what you're looking for and make changes without breaking everything.
-*   **Easy to Add Stuff:** A simple hook system lets you add your own scripts and features without a headache.
-*   **Keep it Snappy:** Things like Git status caching are used to make sure your prompt is fast and doesn't lag.
-*   **Works on Most Systems:** Designed to run on different Linux distros. If a fancy tool is missing, it'll fall back to a basic one.
-*   **Easy to Read:** The code is commented and the files are organized logically, so you can figure out what's going on.
+If you want to change something, you just need to know which file it lives in. Everything is organized inside the `.bashrc.d` directory.
 
-## 🏗️ How It Loads Up
+### I want to change my command shortcuts (aliases)
+Look in `01-aliases.sh`. This is where all the short commands like `ll` or `gs` are defined. If you want to add a new shortcut for a command you use all the time, add it here.
 
-When you open your terminal, Felis Shell loads everything in a specific order to make sure it all works together. It starts with your main `~/.bashrc` file, which then pulls in all the config files from the `~/.dotfiles/.bashrc.d` directory.
+### I want to change how my prompt looks
+Look in `02-prompt.sh`. This file controls what you see next to your cursor. It handles the colors, the Git branch display, and the multi-line layout. If you want to change the colors or add new information to the prompt, this is the place.
 
-```mermaid
-graph TD
-    A[~/.bashrc] --> B{Load files from ~/.dotfiles/.bashrc.d/*};
-    B --> C[00-colors.sh];
-    B --> D[01-aliases.sh];
-    B --> E[02-prompt.sh];
-    B --> F[03-hooks.sh];
-    B --> G[user.conf.example];
-    B --> H[functions/*.sh];
-    H --> I[development.sh];
-    H --> J[directory.sh];
-    H --> K[dotfiles.sh];
-    H --> L[fileops.sh];
-    H --> M[help.sh];
-    H --> N[n8n.sh];
-    H --> O[network.sh];
-    H --> P[project.sh];
-    H --> Q[system.sh];
-```
+### I want to change terminal colors
+Look in `00-colors.sh`. This file defines the color palette used by the rest of the scripts. It creates variables like `C_PRIMARY` or `C_SUCCESS` so that the same colors are used everywhere.
 
-## 📁 The Different Parts
+### I want to add or change "automatic" behaviors
+Look in `03-hooks.sh`. This file contains "hooks" that run every time you do something, like changing directories (`cd`). This is what automatically activates Python virtual environments or shows you project info when you enter a folder.
 
-### 1. `~/.bashrc` (The Starting Point)
-This is the main file that kicks everything off. It sets some basic shell options and then loads all the other config files from the `.bashrc.d` directory.
+### I want to add a new custom function
+Look in the `functions/` directory. Instead of one giant file, functions are grouped by what they do:
+- **System tasks?** Put them in `functions/system.sh`.
+- **Network tools?** Put them in `functions/network.sh`.
+- **New project helpers?** Put them in `functions/development.sh`.
 
-### 2. `00-colors.sh` (Colors & Style)
-*   **What it does:** Sets up the color scheme for the terminal and provides easy ways to print colorful messages.
-*   **Details:** Uses a nice color theme that works on most terminals. It includes simple color names (like `C_SUCCESS`, `C_ERROR`) and helper functions (`print_success`, `print_error`) to make outputs look good.
+## How everything loads
 
-### 3. `01-aliases.sh` (Shortcuts & Settings)
-*   **What it does:** This is where all the command shortcuts (aliases) live. It also sets up some useful environment variables.
-*   **Details:** You'll find shortcuts for common commands like `ll` (for a detailed file list), and it makes tools like `ls` and `cat` better by using modern alternatives (`eza`, `bat`) if they're installed.
+When you start your terminal, your main `~/.bashrc` runs. Its only job is to go into the `.bashrc.d` folder and load every file it finds there in order.
 
-### 4. `02-prompt.sh` (The Smart Prompt)
-*   **What it does:** This file configures the cool, multi-line prompt that gives you a bunch of info at a glance.
-*   **Details:** It shows your username, current folder, Git status (with caching to keep it fast), Python virtual environment, Node.js version, and more.
+1. **Colors first** (`00-colors.sh`): So that other scripts can use color.
+2. **Aliases second** (`01-aliases.sh`): So your shortcuts are ready.
+3. **Prompt third** (`02-prompt.sh`): So your screen looks right.
+4. **Hooks fourth** (`03-hooks.sh`): So the automation starts working.
+5. **Functions last** (`functions/*.sh`): So all your tools are in your pocket.
 
-### 5. `03-hooks.sh` (Automatic Magic)
-*   **What it does:** This is where the "smart" features live. It automatically manages your environment as you move around.
-*   **Details:** It can auto-activate Python virtual environments or switch your Node.js version when you `cd` into a project. It also integrates with tools like FZF (for fuzzy finding) and Zoxide (for smart directory jumping).
+## Making your own changes
 
-### 6. `functions/` (The Toolbox)
-*   **What it does:** This folder is a collection of handy shell functions, sorted into different files by what they do.
-*   **Details:**
-    *   `development.sh`: Functions to quickly start new projects (`pyinit`, `nodeinit`).
-    *   `directory.sh`: Helpers for moving around and making directories (`mkcd`).
-    *   `dotfiles.sh`: A tool to backup and restore your dotfiles (`dotfiles`).
-    *   `fileops.sh`: A universal `extract` command for any archive.
-    *   `help.sh`: The `help` and `shortcut` commands.
-    *   `n8n.sh`: Functions to manage n8n and ngrok.
-    *   `network.sh`: Tools to check your IP address and open ports (`myip`, `portcheck`).
-    *   `project.sh`: A command to create new projects with a nice structure (`newproject`).
-    *   `system.sh`: Tools for system cleanup and managing services (`sysclean`, `serv`).
+The best way to tinker is to:
+1. Find the file that handles what you want to change.
+2. Make your edit.
+3. Save the file.
+4. Run `source ~/.bashrc` in your terminal to see the changes immediately.
+
+If you make a mistake and your terminal starts acting weird, you can usually just undo your change and "source" the file again.
