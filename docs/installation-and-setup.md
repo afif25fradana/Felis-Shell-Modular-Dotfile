@@ -1,107 +1,114 @@
-# Installation & Setup Guide
+# Installation and Setup Guide
 
 This guide will walk you through installing Felis Shell and show you how to customize it to make it your own.
 
-## 🚀 Getting Started
+## Getting Started
 
-If you want to get up and running in a flash, check out the [Quick Start Guide](quick-start.md). For more detailed instructions, read on.
+If you want to get up and running quickly, check out the Quick Start Guide. For more detailed instructions, read on.
 
-1.  **Clone the Repo:**
-    First, you'll need to clone the Felis Shell repo to a location of your choice. A folder in your home directory is recommended.
-    ```bash
-    git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/felis-shell
-    cd ~/felis-shell
-    ```
+1. Clone the Repo
+First, you will need to clone the Felis Shell repository to a location of your choice. A folder in your home directory is recommended.
 
-2.  **Run the Installer:**
-    Next, run the `install.sh` script. This script is pretty smart:
-    *   **Backs Up Your Stuff:** It saves your old dotfiles (like `~/.bashrc`) in a backup folder before it does anything.
-    *   **Creates Symlinks:** It links the Felis Shell dotfiles into your home directory.
-    *   **Copies Files:** It copies things like the logos to the right place.
+```bash
+git clone https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile.git ~/felis-shell
+cd ~/felis-shell
+```
 
-    ```bash
-    ./install.sh
-    ```
+2. Run the Installer
+Next, run the install.sh script. This script handles several tasks:
+- Backs Up Your Files: It saves your old configuration files (like .bashrc) in a backup folder before making any changes.
+- Creates Links: It connects the Felis Shell files to your home directory.
+- Copies Assets: It puts things like logos in the right place.
 
-3.  **Set Up Your Git Info:**
-    Update the `.gitconfig` file with your name and email.
-    ```bash
-    cd ~/.dotfiles
-    nano .gitconfig # Or whatever editor you like
-    ```
-    Make sure the `[user]` section has your info:
-    ```ini
-    [user]
-        name = Your Name
-        email = your.email@example.com
-    ```
+To install with all recommended tools automatically, use the following command:
 
-4.  **Reload Your Shell:**
-    To see the changes, open a new terminal or run `source ~/.bashrc`.
-    ```bash
-    source ~/.bashrc
-    ```
+```bash
+./install.sh --install-deps
+```
 
-## 🛠️ What You'll Need
+3. Set Up Your Git Info
+Update the .gitconfig file with your name and email.
 
-Felis Shell uses a few external tools to make it awesome. The installer will try to install these for you, but you can also install them yourself. While most of these tools are optional, they are highly recommended for the best experience.
+```bash
+cd ~/.dotfiles
+nano .gitconfig
+```
 
-**Core Tools:**
-- `eza`, `bat`, `fd`, `ripgrep`, `fzf`, `zoxide`, `btop`/`htop`, `jq`, `unzip`, `unrar`, `p7zip`, `curl`, `netcat`
+Make sure the [user] section has your information:
 
-**Development:**
-- `nvm`, `shellcheck`, `docker`, `docker-compose`, `ngrok`, `gh`
+```ini
+[user]
+    name = Your Name
+    email = your.email@example.com
+```
 
-**Appearance:**
-- `kitty` (recommended terminal), `Nerd Fonts`, `fastfetch`, `cowsay`, `fortune`
+4. Reload Your Shell
+To see the changes, open a new terminal or run the following command:
 
-## ⚙️ Making It Your Own
+```bash
+source ~/.bashrc
+```
 
-Felis Shell is designed to be easy to customize. All the config files are in `~/.dotfiles/.bashrc.d/`.
+## What is Under the Hood
 
-### 1. Your Personal Config (`user.conf`)
-For your own personal settings that you don't want to commit to Git, create a `user.conf` file:
+Felis Shell uses a few helper tools to provide a better experience. You do not need to worry about installing these manually because the installer can do it for you when you use the --install-deps flag.
+
+Here is a brief look at what gets installed:
+
+- Core Tools: These are essential for the basic features of the shell, such as git, curl, and htop for system monitoring.
+- Enhanced Experience: These are modern alternatives to standard commands. For example, eza replaces ls with better colors, and bat replaces cat with syntax highlighting.
+- Appearance: Tools like fastfetch and Nerd Fonts help make your terminal look great.
+
+If you are curious about what is being installed, the installer will list each tool as it works. Most of these tools are optional, but they are recommended for the best experience.
+
+## Making It Your Own
+
+Felis Shell is designed to be easy to customize. All the configuration files are located in ~/.dotfiles/.bashrc.d/.
+
+1. Your Personal Config (user.conf)
+For your own personal settings that you do not want to share, create a user.conf file:
+
 ```bash
 cp ~/.dotfiles/.bashrc.d/user.conf.example ~/.dotfiles/.bashrc.d/user.conf
 ```
-You can add your own aliases, functions, and environment variables in here. This file is loaded last, so your settings will always take precedence.
 
-### 2. Colors & Style (`00-colors.sh`)
-You can change the color scheme by editing `~/.dotfiles/.bashrc.d/00-colors.sh`.
+You can add your own shortcuts and settings here. This file is loaded last, so your settings will always take precedence.
 
-### 3. Aliases & Environment Variables (`01-aliases.sh`)
-Want to add your own shortcuts? Edit `~/.dotfiles/.bashrc.d/01-aliases.sh`.
-*   **Example:**
-    ```bash
-    alias g='git'
-    export EDITOR='nvim'
-    ```
+2. Colors and Style (00-colors.sh)
+You can change the color scheme by editing ~/.dotfiles/.bashrc.d/00-colors.sh.
 
-### 4. The Prompt (`02-prompt.sh`)
-You can customize the look of your prompt by editing `~/.dotfiles/.bashrc.d/02-prompt.sh`. The main logic is in the `build_prompt` function.
+3. Shortcuts (01-aliases.sh)
+Want to add your own command shortcuts? Edit ~/.dotfiles/.bashrc.d/01-aliases.sh.
 
-### 5. "Smart" Features (`03-hooks.sh`)
-This file is where the automatic environment switching happens. You can tweak the logic for Python virtual environments or Node.js versions in here.
+4. The Prompt (02-prompt.sh)
+You can customize the look of your command prompt by editing ~/.dotfiles/.bashrc.d/02-prompt.sh.
 
-### 6. Custom Functions (`functions/`)
-If you want to add your own shell functions, you can create a new `.sh` file in the `~/.dotfiles/.bashrc.d/functions/` directory.
+5. Smart Features (03-hooks.sh)
+This file handles automatic environment switching, such as for Python or Node.js.
 
-## ⬆️ How to Update
+6. Custom Functions (functions/)
+If you want to add your own shell functions, you can create a new file in the ~/.dotfiles/.bashrc.d/functions/ directory.
+
+## How to Update
 
 To get the latest version of Felis Shell:
 
-1.  **Go to your original cloned repository folder:**
-    ```bash
-    cd /tmp/felis-shell # Or wherever you cloned the repository
-    ```
-2.  **Pull the latest changes:**
-    ```bash
-    git pull origin main
-    ```
-3.  **Re-run the installer (optional, but a good idea):**
-    ```bash
-    ./install.sh
-    ```
-4.  **Reload your shell:**
-    ```bash
-    source ~/.bashrc
+1. Go to your original folder:
+```bash
+cd ~/felis-shell
+```
+
+2. Pull the latest changes:
+```bash
+git pull origin main
+```
+
+3. Re-run the installer (optional):
+```bash
+./install.sh
+```
+
+4. Reload your shell:
+```bash
+source ~/.bashrc
+```
