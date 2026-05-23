@@ -1,6 +1,6 @@
 # Dotfiles Testing and Debugging Guide
 
-## Test Script (`test_dotfiles.sh`)
+## Test Script (test_dotfiles.sh)
 
 The enhanced test script provides comprehensive testing of your dotfiles with multiple test suites.
 
@@ -43,7 +43,7 @@ The enhanced test script provides comprehensive testing of your dotfiles with mu
 7. **Dependency Check** - Ensures all required dependencies are available
 8. **Integration Tests** - Tests actual sourcing and functionality of dotfiles
 
-## Debug Script (`debug_dotfiles.sh`)
+## Debug Script (debug_dotfiles.sh)
 
 The debug script helps troubleshoot issues with your dotfiles configuration.
 

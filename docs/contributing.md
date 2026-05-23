@@ -2,7 +2,7 @@
 
 Hey there! Thanks for your interest in contributing to Felis Shell. This is a personal hobby project, and I'm excited that you'd like to help out. Any contributions, big or small, are welcome!
 
-## 🤝 How You Can Help
+## How You Can Help
 
 1.  **Fork the Repo:** Start by forking this repository to your own GitHub account.
 2.  **Clone Your Fork:** Clone your forked repo to your computer.
@@ -27,11 +27,11 @@ Hey there! Thanks for your interest in contributing to Felis Shell. This is a pe
     ```
 8.  **Open a Pull Request (PR):** Head over to the original repo and open a new Pull Request. Give a quick description of what you've changed and why.
 
-## 📝 A Few Style Tips
+## A Few Style Tips
 
 To keep everything looking consistent, here are a few friendly guidelines:
 
-*   **`shellcheck`:** It's a good idea to run `shellcheck` on your scripts to catch common errors.
+*   **shellcheck:** It's a good idea to run `shellcheck` on your scripts to catch common errors.
     ```bash
     shellcheck your_script.sh
     ```
@@ -42,7 +42,7 @@ To keep everything looking consistent, here are a few friendly guidelines:
 *   **Keep it Simple:** Try to keep functions and scripts focused on doing one thing well.
 *   **Readability:** Clear and simple code is always better than a clever one-liner that's hard to understand.
 
-## 🐛 Found a Bug?
+## Found a Bug?
 
 If you find a bug, please open an issue on the [GitHub Issues page](https://github.com/afif25fradana/Felis-Shell-Modular-Dotfile/issues). In your issue, try to include:
 
@@ -52,7 +52,7 @@ If you find a bug, please open an issue on the [GitHub Issues page](https://gith
 *   What you expected to happen and what actually happened.
 *   Info about your setup (OS, shell, terminal, etc.).
 
-## ✨ Have an Idea?
+## Have an Idea?
 
 If you have an idea for a new feature, feel free to open an issue to suggest it. I'm always open to new ideas!
 

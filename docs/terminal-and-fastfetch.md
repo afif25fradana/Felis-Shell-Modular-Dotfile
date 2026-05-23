@@ -2,7 +2,7 @@
 
 This guide gives you a quick look at how the terminal is set up, including Fastfetch, Kitty, and other tools.
 
-## 🚀 Fastfetch Setup
+## Fastfetch Setup
 
 ### Random Image Fastfetch
 
@@ -33,7 +33,7 @@ You can also edit the script directly to change:
 - `LOGO_DIR`: The folder with your logos.
 - `MAX_LOGO_WIDTH`: The max width of the logo.
 
-## 🐱 Kitty Terminal
+## Kitty Terminal
 
 **Config file:** `~/.config/kitty/kitty.conf`
 
@@ -41,7 +41,7 @@ You can also edit the script directly to change:
 - **Font:** JetBrains Mono Nerd Font (14pt)
 - **Theme:** Catppuccin Mocha
 - **Transparency:** A nice 90% background opacity.
-- **Tabs:** A cool powerline style for the tabs.
+- **Tabs:** A powerline style for the tabs.
 
 ### A Few Keyboard Shortcuts
 - `Super+Enter` - New window
@@ -51,7 +51,7 @@ You can also edit the script directly to change:
 - `Ctrl+Shift+C/V` - Copy/Paste
 - `Ctrl+Shift+Plus/Minus` - Change the font size
 
-## 📝 How to Customize
+## How to Customize
 
 ### Adding New Logos
 1.  Drop your image files in `$HOME/.dotfiles/logos/`.
