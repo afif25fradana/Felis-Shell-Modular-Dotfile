@@ -205,8 +205,8 @@ cd() {
 setup_fzf() {
     # Try multiple possible FZF locations
     local fzf_locations=(
-        "/usr/share/fzf"
-        "/usr/share/doc/fzf/examples"
+        "/usr/share/doc/fzf/examples"  # Ubuntu/Debian
+        "/usr/share/fzf"               # Arch
         "/opt/homebrew/opt/fzf/shell"  # macOS Homebrew
         "$HOME/.fzf/shell"             # Manual install
     )
@@ -232,16 +232,21 @@ setup_fzf() {
     "
 
     # Use fd or rg if available for better performance
+    local fd_cmd
     if command -v fd >/dev/null; then
-        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+        fd_cmd="fd"
+    elif command -v fdfind >/dev/null; then
+        fd_cmd="fdfind"
+    fi
+
+    if [[ -n "$fd_cmd" ]]; then
+        export FZF_DEFAULT_COMMAND="$fd_cmd --type f --hidden --follow --exclude .git"
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_C_COMMAND="$fd_cmd --type d --hidden --follow --exclude .git"
     elif command -v rg >/dev/null; then
         export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
         export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     fi
-
-    # Alt-C for better directory navigation
-    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 }
 
 setup_fzf

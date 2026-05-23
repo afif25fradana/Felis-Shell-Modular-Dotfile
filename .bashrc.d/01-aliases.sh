@@ -42,6 +42,10 @@ if command -v eza >/dev/null; then
     alias ll='eza -lha --icons --git --group-directories-first'
     alias ls='eza --icons --git -F --group-directories-first'
     alias tree='eza --tree --icons'
+elif command -v exa >/dev/null; then
+    alias ll='exa -lha --icons --git --group-directories-first'
+    alias ls='exa --icons --git -F --group-directories-first'
+    alias tree='exa --tree --icons'
 else
     alias ll='ls -lha --color=auto --group-directories-first'
     alias ls='ls -F --color=auto --group-directories-first'
@@ -52,6 +56,7 @@ if command -v bat >/dev/null; then
     alias catt='bat --paging=auto'
 elif command -v batcat >/dev/null; then
     # Ubuntu/Debian often has bat as batcat
+    alias bat='batcat'
     alias cat='batcat --paging=never --style=plain'
     alias catt='batcat --paging=auto'
 else
@@ -62,6 +67,7 @@ if command -v fd >/dev/null; then
     alias find='fd'
 elif command -v fdfind >/dev/null; then
     # Ubuntu/Debian has fd as fdfind
+    alias fd='fdfind'
     alias find='fdfind'
 fi
 
